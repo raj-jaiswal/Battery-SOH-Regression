@@ -1,0 +1,16 @@
+feature_rule,local_weight
+num__current_A__std <= -0.60,-942.9322676054622
+num__cycle_index > 0.13,574.7663234260419
+-0.35 < num__nominal_capacity_Ah__max <= 1.40,-416.6910803669717
+num__temperature_C__last <= 0.05,-369.65609794141307
+-0.35 < num__nominal_capacity_Ah__mean <= 1.40,-360.45151557361464
+num__voltage_V__mean <= -0.51,301.64209620714144
+-0.35 < num__nominal_capacity_Ah__last <= 1.40,-294.1337091384547
+-0.96 < num__elapsed_time_s__last <= -0.41,-293.78958464769653
+-0.95 < num__elapsed_time_s__mean <= -0.42,-290.8393003035136
+0.00 < cat__source_dataset_NASA <= 1.00,-281.9486441909875
+-0.35 < num__nominal_capacity_Ah__first <= 1.40,-276.5970012265254
+num__temperature_C__std <= -0.08,265.2988983222922
+-0.96 < num__elapsed_time_s__max <= -0.41,-245.8325578605052
+0.00 < cat__operation_DISCHARGE <= 1.00,-244.19691130633947
+-0.35 < num__nominal_capacity_Ah__min <= 1.40,-243.47309772464243

@@ -1,0 +1,6 @@
+.venv/
+data/calce/
+data/mobile2mobile/
+data/nasa/
+data/unified.parquet
+*/__pycache__/

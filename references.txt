@@ -1,0 +1,89 @@
+Prognostics of Lithium-Ion Batteries Based on Dempster-Shafer Theory and the Bayesian Monte Carlo Method
+https://doi.org/10.1016/j.jpowsour.2011.08.040
+
+An Ensemble Model for Predicting the Remaining Useful Performance of Lithium-Ion Batteries
+https://doi.org/10.1016/j.microrel.2012.12.003
+
+Comparative Analysis of Features for Determining State of Health in Lithium-Ion Batteries
+https://doi.org/10.36001/ijphm.2013.v4i1.1437
+
+A Novel Gaussian Process Regression Model for State-of-Health Estimation of Lithium-Ion Battery Using Charging Curve
+https://doi.org/10.1016/j.jpowsour.2018.03.015
+
+State of Health Estimation of Lithium-Ion Batteries: A Multiscale Gaussian Process Regression Modeling Approach
+https://doi.org/10.1002/aic.14760
+
+State of Health Prediction of Lithium-Ion Batteries: Multiscale Logic Regression and Gaussian Process Regression Ensemble
+https://doi.org/10.1016/j.ress.2018.02.022
+
+State-of-Health Prediction of Lithium-Ion Batteries Based on a Low Dimensional Gaussian Process Regression
+https://doi.org/10.1016/j.est.2024.111649
+
+State of Health Estimation for Lithium-Ion Batteries with Bayesian Optimized Gaussian Process Regression
+https://doi.org/10.1177/09544070241287254
+
+Variational Learning of Inducing Variables in Sparse Gaussian Processes
+https://proceedings.mlr.press/v5/titsias09a.html
+
+A State-of-Health Estimation Method Considering Capacity Recovery of Lithium Batteries
+https://doi.org/10.1002/er.8671
+
+LSTM-Based Estimation of Lithium-Ion Battery SOH Using Data Characteristics and Spatio-Temporal Attention
+https://doi.org/10.1371/journal.pone.0312856
+
+State of Health Assessment for Lithium-Ion Batteries Using Incremental Energy Analysis and Bidirectional Long Short-Term Memory
+https://doi.org/10.3390/wevj14070188
+
+State of Health Estimation of Lithium-Ion Batteries Based on Stacked-LSTM Transfer Learning With Bayesian Optimization and Multiple Features
+https://doi.org/10.1109/JSEN.2024.3472648
+
+An End-Cloud Collaboration Approach for State-of-Health Estimation of Lithium-Ion Batteries Based on Bi-LSTM with Collaboration of Multi-Feature and Attention Mechanism
+https://doi.org/10.1080/15435075.2023.2299402
+
+Dual-Branch Bidirectional Long Short-Term Memory Network for Battery State of Health Estimation Under Incomplete Data
+https://doi.org/10.3390/en19143417
+
+Lithium Battery State of Health Estimation Using Real-World Vehicle Data and an Interpretable Hybrid Framework
+https://doi.org/10.1016/j.est.2024.112623
+
+Feature Engineering and Explainable Artificial Intelligence for State of Health Estimation of Lithium-Ion Batteries
+https://doi.org/10.1016/j.est.2025.119873
+
+Uncertainty-Aware Transformer for Lithium-Ion Battery State-of-Health Estimation
+https://doi.org/10.3233/ATDE260884
+
+Uncertainty-Aware Early Battery Life Prediction with Composite-Kernel Gaussian Process Regression and Conformalized Adaptive Intervals
+https://doi.org/10.3390/a19070535
+
+An Interpretable Framework Integrating Multiphysics Modeling and Symbolic Regression for Battery State-of-Health Estimation
+https://doi.org/10.1016/j.measurement.2026.122305
+
+Interpretable Machine Learning for Science with PySR and SymbolicRegression.jl
+https://arxiv.org/abs/2305.01582
+
+State-of-Health Estimation of Lithium-Ion Batteries: A Comprehensive Literature Review from Cell to Pack Levels
+https://doi.org/10.1049/enc2.12125
+
+Recent Progress in State of Health Estimation for Lithium-Ion Batteries: From Laboratory to Practical Application
+https://doi.org/10.1016/j.rser.2025.116323
+
+From Tradition to Innovation: Evolution and Trade-Offs of Lithium-Ion Battery State of Health Estimation Methods
+https://doi.org/10.1016/j.est.2025.119730
+
+Review of Lithium-Ion Battery Capacity-Based State of Health Estimation Algorithms
+https://doi.org/10.3390/batteries12090364
+
+A Sensor-Aware Physics-Based Framework for Continuous Smartphone Battery State and Lifetime Prediction
+https://doi.org/10.3390/s26154707
+
+Predicting Smartphone Battery Time-to-Empty (TTE) on an Open-Source PinePhone Platform: A Modular Electro-Thermal Continuous-Time Model
+https://doi.org/10.1371/journal.pone.0355305
+
+A Fusion Mechanism-Coordinated Dynamic Modeling Approach for Smartphone Battery Depletion Prediction
+https://doi.org/10.3390/en19153669
+
+Separating Instantaneous and Delayed Battery-Drain Effects for Smartphone Remaining Runtime Prediction
+https://doi.org/10.3390/electronics15153257
+
+Center for Advanced Life Cycle Engineering (CALCE), University of Maryland. Battery Data.
+https://calce.umd.edu/battery-data

@@ -1,0 +1,8 @@
+method,status,top_features,details
+SHAP,ok,"num__elapsed_time_s__last, num__elapsed_time_s__max, num__elapsed_time_s__min, num__elapsed_time_s__first, num__elapsed_time_s__mean",Permutation SHAP on transformed features; global mean absolute attribution.
+LIME,ok,"-0.96 < num__elapsed_time_s__max <= -0.41, -0.96 < num__elapsed_time_s__last <= -0.41, -0.95 < num__elapsed_time_s__mean <= -0.42, 0.25 < num__current_A__last <= 0.25, num__missingindicator_voltage_V__std <= -0.60",Local surrogate explanation for one representative cycle.
+Permutation sensitivity,ok,"num__elapsed_time_s__last, num__elapsed_time_s__max, num__elapsed_time_s__first, num__elapsed_time_s__min, num__elapsed_time_s__mean","Top-variance features; increase in fitted-data MAE after shuffling. Descriptive, not a held-out score."
+PDP,ok,"num__elapsed_time_s__last, num__elapsed_time_s__max, num__elapsed_time_s__min",One-way partial dependence for top features in transformed feature space.
+ICE,ok,"num__elapsed_time_s__last, num__elapsed_time_s__max, num__elapsed_time_s__min",Individual conditional expectation curves for representative cycles.
+ARD length-scale relevance,not_applicable,,Specific to the ARD-GPR baseline.
+Symbolic equation + sensitivities,not_applicable,,Specific to standalone symbolic regression; proposed WD-GPR-SR residual equation is a separate model.

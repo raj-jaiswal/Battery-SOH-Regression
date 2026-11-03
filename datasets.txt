@@ -1,0 +1,9 @@
+NASA PCoE Li-ion Battery Aging Dataset
+https://phm-datasets.s3.amazonaws.com/NASA/5.+Battery+Data+Set.zip
+
+CALCE Battery Dataset
+https://web.calce.umd.edu/batteries/data/
+
+RWTH Mobile2Mobile Android Battery Dataset
+https://publications.rwth-aachen.de/record/1044735/files/Dataset_from_Mobile_Battery_Data_Explorer_2026-04_2026-09.zip
+

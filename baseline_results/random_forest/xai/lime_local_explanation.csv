@@ -1,0 +1,16 @@
+feature_rule,local_weight
+-0.96 < num__elapsed_time_s__max <= -0.41,-284.39485335813134
+-0.96 < num__elapsed_time_s__last <= -0.41,-268.43111457972844
+-0.95 < num__elapsed_time_s__mean <= -0.42,-183.92164049683598
+0.25 < num__current_A__last <= 0.25,-99.42751514321962
+num__missingindicator_voltage_V__std <= -0.60,79.14247027677632
+num__elapsed_time_s__min <= -0.95,78.5537758693837
+num__current_A__std <= -0.60,-65.85692460750704
+num__missingindicator_current_A__std <= -0.60,-61.41520182055575
+0.23 < num__n_measurements <= 0.40,-56.02562653135808
+num__missingindicator_temperature_C__mean <= -1.46,55.97133956388636
+num__elapsed_time_s__first <= -0.95,54.874781864205666
+num__temperature_C__std <= -0.08,47.23260922296424
+-0.13 < num__current_A__min <= 0.46,42.43899131663824
+num__temperature_C__mean <= 0.17,40.44852806083314
+num__missingindicator_temperature_C__std <= -1.46,38.5239841173958

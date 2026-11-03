@@ -1,0 +1,15 @@
+# Run these on the laptop/environment that already contains the trained joblibs.
+numpy>=2.0,<3.0
+joblib>=1.4
+scikit-learn>=1.5
+onnx>=1.16
+
+# Required for the three feed-forward NNs and BiLSTM ONNX exports.
+torch>=2.2
+
+# Required for Sparse GPR and Deep-Kernel GPR model extraction.
+gpytorch>=1.13
+
+# Required to load/export the corresponding trained artifacts.
+xgboost>=2.1
+gplearn>=0.4.2

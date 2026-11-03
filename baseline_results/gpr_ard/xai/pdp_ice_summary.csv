@@ -1,0 +1,4 @@
+feature,pdp_prediction_range
+num__missingindicator_voltage_V__std,475.7961847805909
+num__missingindicator_temperature_C__std,1110.8441920982004
+num__voltage_V__mean,513.2343146847788

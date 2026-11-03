@@ -1,0 +1,6 @@
+#!/usr/bin/env python3
+"""Jetson Orin Nano hardware-only benchmark for random_forest optimized export."""
+from jetson_runtime import main
+
+if __name__ == "__main__":
+    main("random_forest", __file__)

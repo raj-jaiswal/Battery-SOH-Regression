@@ -1,0 +1,16 @@
+feature_rule,local_weight
+num__current_A__std <= -0.60,-252.43643955150063
+num__cycle_index > 0.13,158.45007365191782
+-0.95 < num__elapsed_time_s__mean <= -0.42,-152.13574496513775
+-0.96 < num__elapsed_time_s__last <= -0.41,-151.65688712246939
+num__missingindicator_temperature_C__last <= -1.46,-143.62817701205958
+num__missingindicator_temperature_C__mean <= -1.46,-130.15936445330777
+-0.35 < num__nominal_capacity_Ah__min <= 1.40,-125.98466447372832
+-0.35 < num__nominal_capacity_Ah__mean <= 1.40,-122.14301455013916
+num__temperature_C__max <= 0.12,-107.06626603388885
+num__missingindicator_temperature_C__max <= -1.46,-103.21312662035224
+num__missingindicator_temperature_C__std <= -1.46,-100.53252122198501
+num__missingindicator_temperature_C__first <= -1.46,-94.42954240306781
+-0.35 < num__nominal_capacity_Ah__max <= 1.40,-86.67950558856532
+-0.96 < num__elapsed_time_s__max <= -0.41,-85.29332123870101
+num__nominal_capacity_Ah__std <= -0.69,-70.7546192426901
