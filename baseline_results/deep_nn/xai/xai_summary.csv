@@ -1,8 +1,8 @@
 method,status,top_features,details
-SHAP,ok,"num__elapsed_time_s__first, num__elapsed_time_s__last, num__elapsed_time_s__mean, num__elapsed_time_s__min, num__current_A__min",Permutation SHAP on transformed features; global mean absolute attribution.
-LIME,ok,"num__current_A__std <= -0.60, num__cycle_index > 0.13, -0.35 < num__nominal_capacity_Ah__max <= 1.40, num__temperature_C__last <= 0.05, -0.35 < num__nominal_capacity_Ah__mean <= 1.40",Local surrogate explanation for one representative cycle.
-Permutation sensitivity,ok,"num__current_A__std, num__current_A__min, num__elapsed_time_s__last, num__elapsed_time_s__first, num__elapsed_time_s__mean","Top-variance features; increase in fitted-data MAE after shuffling. Descriptive, not a held-out score."
-PDP,ok,"num__elapsed_time_s__first, num__elapsed_time_s__last, num__elapsed_time_s__mean",One-way partial dependence for top features in transformed feature space.
-ICE,ok,"num__elapsed_time_s__first, num__elapsed_time_s__last, num__elapsed_time_s__mean",Individual conditional expectation curves for representative cycles.
+SHAP,ok,"num__voltage_std_V, num__current_abs_std_A, num__cycle_order, num__voltage_max_V, num__voltage_q10_V",Permutation SHAP on transformed features; global mean absolute attribution.
+LIME,ok,"num__voltage_std_V > 0.00, num__voltage_max_V > 0.99, num__current_abs_std_A > 0.44, num__voltage_q10_V <= -0.41, num__cycle_order <= -1.00",Local surrogate explanation for one representative cycle.
+Permutation sensitivity,ok,"num__current_abs_mean_A, num__voltage_std_V, num__cycle_order, num__voltage_q90_V, num__voltage_median_V","Top-variance features; increase in fitted-data MAE after shuffling. Descriptive, not a held-out score."
+PDP,ok,"num__voltage_std_V, num__current_abs_std_A, num__cycle_order",One-way partial dependence for top features in transformed feature space.
+ICE,ok,"num__voltage_std_V, num__current_abs_std_A, num__cycle_order",Individual conditional expectation curves for representative cycles.
 ARD length-scale relevance,not_applicable,,Specific to the ARD-GPR baseline.
 Symbolic equation + sensitivities,not_applicable,,Specific to standalone symbolic regression; proposed WD-GPR-SR residual equation is a separate model.

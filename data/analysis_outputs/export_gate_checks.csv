@@ -1,0 +1,18 @@
+check,passed,detail
+expected_NASA_file_count,True,found=34 expected=34
+expected_CALCE_cell_folder_count,True,found=13 expected=13
+all_NASA_cells_have_valid_cycles,True,missing=[]
+all_CALCE_cells_have_valid_cycles,True,missing=[]
+no_conflicting_duplicate_NASA_files,True,conflicts=0
+no_conflicting_CALCE_duplicate_cycle_starts,True,conflicts=0
+no_CALCE_parse_errors,True,parse_errors=0
+no_NASA_parse_errors,True,parse_errors=0
+every_cell_has_at_least_2_cycles,True,minimum_cycles=4
+all_capacities_positive_and_finite,True,all cycle capacities must be finite and >0
+SOH_finite_positive,True,all SOH labels must be finite and >0
+no_extreme_SOH_outliers,True,SOH range=10.13..122.20; threshold 10..130
+CALCE_capacity_scale_matches_known_ratings,True,CALCE median capacity / published nominal rating must be 0.25..1.30
+NASA_capacity_scale_matches_2Ah_rating,True,NASA full-discharge capacity / 2.0 Ah rating must be 0.10..1.30
+CALCE_cycle_capacity_physical_range,True,each CALCE cycle must be <= 1.5 x its family rating
+no_duplicate_source_cell_cycle_rows,True,unique key source_dataset + entity_id + cycle_id
+exact_expected_cell_total,True,found=47 expected=47

@@ -1,4 +1,4 @@
 feature,pdp_prediction_range
-num__elapsed_time_s__first,1022.3311767578125
-num__elapsed_time_s__min,847.2015380859375
-num__elapsed_time_s__max,716.94482421875
+num__voltage_std_V,24.150074005126953
+num__cycle_order,16.586837768554688
+num__missingindicator_temperature_std_C,8.186752319335938

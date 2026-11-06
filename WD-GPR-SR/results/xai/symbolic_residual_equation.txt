@@ -1,0 +1,12 @@
+SOH_pct = target_mean + target_scale * (GP_mean_scaled + residual_equation)
+residual_equation = ((-abs(num__elapsed_time_s__max)) + abs(((-sqrt(abs((abs(num__n_measurements) - pdiv(num__elapsed_time_s__min, abs(pdiv(num__elapsed_time_s__min, num__n_measurements))))))) + (num__elapsed_time_s__max + abs((abs(num__n_measurements) - pdiv(num__elapsed_time_s__min, abs(pdiv(num__elapsed_time_s__min, num__n_measurements)))))))))
+equation_node_count = 29
+
+Symbolic input mapping:
+x0 = num__n_measurements
+x1 = num__elapsed_time_s__max
+x2 = num__elapsed_time_s__last
+x3 = num__elapsed_time_s__mean
+x4 = num__elapsed_time_s__min
+x5 = num__elapsed_time_s__first
+x6 = normalized_gp_predictive_std

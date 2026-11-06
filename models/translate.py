@@ -24,6 +24,7 @@ import numbers
 import os
 import sys
 import traceback
+import tempfile
 from pathlib import Path
 from scipy.optimize import minimize
 
@@ -261,6 +262,71 @@ def _array(tensor):
     return np.asarray(tensor)
 
 
+
+def validate_bundle_contract(bundle, expected_model_name):
+    required = {
+        "model_name", "numeric_features", "categorical_features",
+        "feature_columns", "feature_names_transformed",
+        "preprocessor", "target_scaler", "model",
+    }
+    missing = required - set(bundle)
+    if missing:
+        raise ValueError(f"Joblib bundle is missing required keys: {sorted(missing)}")
+    if bundle["model_name"] != expected_model_name:
+        raise ValueError(
+            f"Expected model_name={expected_model_name!r}, got {bundle['model_name']!r}."
+        )
+
+    numeric = list(bundle["numeric_features"])
+    categorical = list(bundle["categorical_features"])
+    features = list(bundle["feature_columns"])
+    if features != numeric + categorical:
+        raise ValueError("feature_columns order differs from numeric_features + categorical_features.")
+
+    forbidden = ("soh", "capacity", "entity_id", "cell_group", "cycle_id",
+                 "source_file", "source_sheet", "duration", "elapsed_time",
+                 "sample_count", "n_measurements", "timestamp")
+    leaked = [f for f in features if any(x in str(f).lower() for x in forbidden)]
+    if leaked:
+        raise ValueError(f"Target leakage / identifier features found: {leaked}")
+
+    actual_names = list(bundle["preprocessor"].get_feature_names_out())
+    expected_names = list(bundle["feature_names_transformed"])
+    if actual_names != expected_names:
+        raise ValueError("Transformed feature names do not match the fitted preprocessor.")
+
+    scaler = bundle["target_scaler"]
+    if not hasattr(scaler, "mean_") or not hasattr(scaler, "scale_"):
+        raise ValueError("Target scaler is not fitted.")
+    scale = float(np.asarray(scaler.scale_).ravel()[0])
+    if not np.isfinite(scale) or scale <= 0:
+        raise ValueError("Invalid target-scaler scale.")
+
+    d = len(expected_names)
+    model = bundle["model"]
+    fitted_d = None
+    if hasattr(model, "X_train_"):
+        fitted_d = np.asarray(model.X_train_).shape[-1]
+    elif hasattr(model, "support_vectors_"):
+        fitted_d = np.asarray(model.support_vectors_).shape[-1]
+    elif hasattr(model, "n_features_in_"):
+        fitted_d = int(model.n_features_in_)
+    elif hasattr(model, "model_") and hasattr(model.model_, "train_inputs"):
+        fitted_d = int(model.model_.train_inputs[0].shape[-1])
+    elif hasattr(model, "model_") and hasattr(model.model_, "n_features_in_"):
+        fitted_d = int(model.model_.n_features_in_)
+    if fitted_d is not None and int(fitted_d) != d:
+        raise ValueError(f"Model input dimension {fitted_d} != preprocessor output dimension {d}.")
+
+    if expected_model_name in {"gpr_rbf", "gpr_matern", "gpr_ard"} and bool(getattr(model, "normalize_y", False)):
+        raise ValueError("Exact-GPR exporter requires normalize_y=False.")
+    return {
+        "raw_feature_count": len(features),
+        "transformed_feature_count": d,
+        "feature_contract_validated": True,
+    }
+
+
 def extract_preprocessing(bundle):
     """Export fitted imputation/standardization/one-hot parameters to JSON."""
     pre = bundle["preprocessor"]
@@ -329,41 +395,129 @@ def validate_mean_export(reference, exported, model_name, atol=2e-3, rtol=2e-3):
     return max_abs
 
 
+
+def matern_kernel(X, Z, lengthscale, outputscale=1.0, nu=1.5):
+    X = np.asarray(X, dtype=np.float64)
+    Z = np.asarray(Z, dtype=np.float64)
+    ls = np.asarray(lengthscale, dtype=np.float64).reshape(-1)
+    if ls.size == 1:
+        ls = np.repeat(ls, X.shape[1])
+    delta = (X[:, None, :] - Z[None, :, :]) / ls[None, None, :]
+    r = np.sqrt(np.einsum("nmd,nmd->nm", delta, delta, optimize=True))
+    if float(nu) == 0.5:
+        base = np.exp(-r)
+    elif float(nu) == 1.5:
+        t = np.sqrt(3.0) * r
+        base = (1.0 + t) * np.exp(-t)
+    elif float(nu) == 2.5:
+        t = np.sqrt(5.0) * r
+        base = (1.0 + t + t * t / 3.0) * np.exp(-t)
+    else:
+        raise ValueError(f"Unsupported Matérn nu={nu}.")
+    return float(outputscale) * base
+
+
 def export_gpr(model, out_dir, model_name):
     kernel = model.kernel_
-    signal = kernel.k1
-    constant = float(signal.k1.constant_value)
+    if not (hasattr(kernel, "k1") and hasattr(kernel, "k2")):
+        raise ValueError(f"{model_name}: unsupported kernel structure; expected signal + WhiteKernel.")
+    signal, white = kernel.k1, kernel.k2
+    if not (hasattr(signal, "k1") and hasattr(signal, "k2")):
+        raise ValueError(f"{model_name}: expected ConstantKernel * RBF/Matérn.")
+    if type(white).__name__ != "WhiteKernel":
+        raise ValueError(f"{model_name}: expected additive WhiteKernel.")
+
+    outputscale = float(signal.k1.constant_value)
     base = signal.k2
     X_train = np.asarray(model.X_train_, dtype=np.float64)
     alpha = np.asarray(model.alpha_, dtype=np.float64).reshape(-1)
-    ls = np.asarray(base.length_scale, dtype=np.float64).reshape(-1)
-    if hasattr(base, "nu"):
-        kind = "matern"
-        nu = float(base.nu)
-        if nu not in (0.5, 1.5, 2.5):
-            raise ValueError(f"Unsupported Matérn nu={nu}; only 0.5, 1.5, 2.5 are exported.")
-    else:
+    lengthscale = np.asarray(base.length_scale, dtype=np.float64).reshape(-1)
+
+    if X_train.ndim != 2 or len(X_train) != len(alpha):
+        raise ValueError(f"{model_name}: inconsistent X_train_/alpha_ dimensions.")
+    if lengthscale.size not in (1, X_train.shape[1]):
+        raise ValueError(f"{model_name}: kernel lengthscale does not match input dimension.")
+
+    if type(base).__name__ == "RBF":
         kind, nu = "rbf", None
+        covariance = rbf_kernel
+    elif type(base).__name__ == "Matern":
+        kind, nu = "matern", float(base.nu)
+        covariance = lambda X, Z, ls, os: matern_kernel(X, Z, ls, os, nu)
+        if nu not in (0.5, 1.5, 2.5):
+            raise ValueError(f"{model_name}: unsupported Matérn nu={nu}.")
+    else:
+        raise ValueError(f"{model_name}: unsupported base kernel {type(base).__name__}.")
+
+    if bool(getattr(model, "normalize_y", False)):
+        raise ValueError("Exact-GPR export requires normalize_y=False.")
+    noise_level = float(getattr(white, "noise_level", 0.0))
+
+    # The additive WhiteKernel contributes no cross-covariance for test-vs-train inputs.
+    sample = X_train[:min(16, len(X_train))]
+    portable = covariance(sample, X_train, lengthscale, outputscale) @ alpha
+    reference = np.asarray(model.predict(sample), dtype=float).reshape(-1)
+    parity_error = validate_mean_export(reference, portable, model_name, atol=2e-5, rtol=2e-5)
+
     np.savez_compressed(
         out_dir / "model.npz", X_train=X_train, alpha=alpha,
-        lengthscale=ls, outputscale=np.asarray(constant),
+        lengthscale=lengthscale, outputscale=np.asarray(outputscale),
         kernel_kind=np.asarray(kind), nu=np.asarray(nu if nu is not None else -1.0),
+        white_noise_level=np.asarray(noise_level), normalize_y=np.asarray(False),
     )
-    return {"model_format": "exact_gpr_numpy", "kernel": kind, "matern_nu": nu,
-            "training_points": int(len(X_train))}
+    return {
+        "model_format": "exact_gpr_numpy", "kernel": kind, "matern_nu": nu,
+        "training_points": int(len(X_train)),
+        "parity_max_abs_error_scaled_target": parity_error,
+        "predictive_variance_exported": False,
+    }
 
 
 def export_svr(model, out_dir):
     if getattr(model, "kernel", None) != "rbf":
         raise ValueError("Only the trained RBF SVR is supported by the compact exporter.")
+    support = np.asarray(model.support_vectors_, dtype=np.float64)
+    dual = np.asarray(model.dual_coef_[0], dtype=np.float64)
+    intercept = float(model.intercept_[0])
+    gamma = float(model._gamma)
+
+    sample = support[:min(16, len(support))]
+    delta = sample[:, None, :] - support[None, :, :]
+    sq = np.einsum("nmd,nmd->nm", delta, delta, optimize=True)
+    portable = np.exp(-gamma * sq) @ dual + intercept
+    reference = np.asarray(model.predict(sample), dtype=float).reshape(-1)
+    parity_error = validate_mean_export(reference, portable, "svr", atol=2e-5, rtol=2e-5)
+
     np.savez_compressed(
-        out_dir / "model.npz",
-        support_vectors=np.asarray(model.support_vectors_, dtype=np.float64),
-        dual_coef=np.asarray(model.dual_coef_[0], dtype=np.float64),
-        intercept=np.asarray(float(model.intercept_[0])),
-        gamma=np.asarray(float(model._gamma)),
+        out_dir / "model.npz", support_vectors=support,
+        dual_coef=dual, intercept=np.asarray(intercept), gamma=np.asarray(gamma),
     )
-    return {"model_format": "rbf_svr_numpy", "support_vectors": int(len(model.support_vectors_))}
+    return {
+        "model_format": "rbf_svr_numpy", "support_vectors": int(len(support)),
+        "parity_max_abs_error_scaled_target": parity_error,
+        "predictive_variance_exported": False,
+    }
+
+
+def _predict_random_forest_arrays(X, arrays):
+    X = np.asarray(X, dtype=np.float64)
+    left, right = arrays["left"], arrays["right"]
+    feature, threshold, value = arrays["feature"], arrays["threshold"], arrays["value"]
+    node_count = arrays["node_count"]
+    pred = np.zeros(len(X), dtype=np.float64)
+    for tree_idx in range(len(node_count)):
+        for row_idx, row in enumerate(X):
+            node = 0
+            steps = 0
+            while left[tree_idx, node] != -1:
+                f = int(feature[tree_idx, node])
+                node = int(left[tree_idx, node] if row[f] <= threshold[tree_idx, node]
+                           else right[tree_idx, node])
+                steps += 1
+                if steps > int(node_count[tree_idx]):
+                    raise RuntimeError("Invalid exported tree traversal.")
+            pred[row_idx] += value[tree_idx, node]
+    return pred / max(1, len(node_count))
 
 
 def export_random_forest(model, out_dir):
@@ -385,19 +539,52 @@ def export_random_forest(model, out_dir):
         feature[i, :n] = tree.feature
         threshold[i, :n] = tree.threshold
         value[i, :n] = tree.value[:, 0, 0]
-    np.savez_compressed(
-        out_dir / "model.npz", left=left, right=right, feature=feature,
-        threshold=threshold, value=value, node_count=node_count,
-    )
-    return {"model_format": "random_forest_arrays", "trees": n_trees, "max_nodes_per_tree": int(max_nodes)}
+
+    arrays = {"left": left, "right": right, "feature": feature,
+              "threshold": threshold, "value": value, "node_count": node_count}
+    d = int(model.n_features_in_)
+    probe = np.random.default_rng(RANDOM_SEED).normal(size=(64, d))
+    for tree_idx, estimator in enumerate(estimators[:min(4, n_trees)]):
+        internal = np.flatnonzero(estimator.tree_.children_left != -1)
+        for j, node in enumerate(internal[:8]):
+            row_idx = (tree_idx * 8 + j) % len(probe)
+            f = int(estimator.tree_.feature[node])
+            probe[row_idx, f] = float(estimator.tree_.threshold[node])
+
+    portable = _predict_random_forest_arrays(probe, arrays)
+    reference = np.asarray(model.predict(probe), dtype=float).reshape(-1)
+    parity_error = validate_mean_export(reference, portable, "random_forest", atol=1e-7, rtol=1e-6)
+
+    np.savez_compressed(out_dir / "model.npz", **arrays)
+    return {
+        "model_format": "random_forest_arrays", "trees": n_trees,
+        "max_nodes_per_tree": int(max_nodes),
+        "parity_max_abs_error_scaled_target": parity_error,
+        "predictive_variance_exported": True,
+    }
 
 
 def export_xgboost(model, out_dir):
+    try:
+        import xgboost as xgb
+    except ImportError as exc:
+        raise ImportError("xgboost is required to export this model.") from exc
     booster = model.get_booster() if hasattr(model, "get_booster") else model
     path = out_dir / "model.ubj"
     booster.save_model(str(path))
-    return {"model_format": "xgboost_ubjson", "file": path.name}
 
+    d = int(getattr(model, "n_features_in_", booster.num_features()))
+    probe = np.random.default_rng(RANDOM_SEED).normal(size=(24, d)).astype(np.float32)
+    exported_booster = xgb.Booster()
+    exported_booster.load_model(str(path))
+    exported = exported_booster.predict(xgb.DMatrix(probe)).reshape(-1)
+    reference = np.asarray(model.predict(probe), dtype=float).reshape(-1)
+    parity_error = validate_mean_export(reference, exported, "xgboost", atol=1e-5, rtol=1e-5)
+    return {
+        "model_format": "xgboost_ubjson", "file": path.name,
+        "parity_max_abs_error_scaled_target": parity_error,
+        "predictive_variance_exported": False,
+    }
 
 def export_onnx(module, out_path, input_shape):
     if torch is None:
@@ -421,19 +608,44 @@ def export_onnx(module, out_path, input_shape):
             "onnx_output_name": "output", "onnx_input_shape": [None] + list(input_shape[1:])}
 
 
+
 def export_neural(model_name, model, metadata, out_dir):
     if torch is None:
-        raise ImportError("PyTorch is required for this model.")
+        raise ImportError("PyTorch is required to export neural models to ONNX.")
     net = model.model_.to("cpu").eval()
     d = len(metadata["transformed_feature_names"])
+    rng = np.random.default_rng(RANDOM_SEED)
     if model_name == "bilstm":
         seq = int(metadata["sequence_length"])
         shape = (1, seq, d)
+        probe = rng.normal(size=(8, seq, d)).astype(np.float32)
     else:
         shape = (1, d)
-    export_info = export_onnx(net, out_dir / "model.onnx", shape)
-    return {"model_format": "onnx_neural", **export_info}
+        probe = rng.normal(size=(8, d)).astype(np.float32)
 
+    export_info = export_onnx(net, out_dir / "model.onnx", shape)
+    parity_status = "not_checked_onnxruntime_unavailable"
+    parity_error = None
+    try:
+        import onnxruntime as ort
+        session = ort.InferenceSession(
+            str(out_dir / "model.onnx"), providers=["CPUExecutionProvider"]
+        )
+        input_name = session.get_inputs()[0].name
+        exported = session.run(None, {input_name: probe})[0].reshape(-1)
+        reference = np.asarray(model.predict(probe), dtype=float).reshape(-1)
+        parity_error = validate_mean_export(reference, exported, model_name,
+                                            atol=2e-4, rtol=2e-4)
+        parity_status = "passed"
+    except ImportError:
+        pass
+
+    return {
+        "model_format": "onnx_neural", **export_info,
+        "onnx_parity_status": parity_status,
+        "onnx_parity_max_abs_error_scaled_target": parity_error,
+        "predictive_variance_exported": False,
+    }
 
 def export_sparse_gpr(model, out_dir):
     if torch is None or gpytorch is None:
@@ -468,7 +680,8 @@ def export_sparse_gpr(model, out_dir):
     portable = mean + rbf_kernel(sample, inducing_np, lengthscale, outputscale) @ weights_np
     err = validate_mean_export(reference, portable, "sparse_gpr", atol=5e-3, rtol=5e-3)
     return {"model_format": "sparse_gpr_numpy", "inducing_points": len(inducing_np),
-            "parity_max_abs_error_scaled_target": err}
+            "parity_max_abs_error_scaled_target": err,
+            "predictive_variance_exported": False}
 
 
 def export_deep_kernel_gpr(model, out_dir):
@@ -504,7 +717,8 @@ def export_deep_kernel_gpr(model, out_dir):
     err = validate_mean_export(reference, portable, "deep_kernel_gpr", atol=1e-2, rtol=1e-2)
     return {"model_format": "deep_kernel_gpr_numpy_plus_onnx", **onnx_info,
             "gp_training_points": int(len(train_z)),
-            "parity_max_abs_error_scaled_target": err}
+            "parity_max_abs_error_scaled_target": err,
+            "predictive_variance_exported": False}
 
 
 # gplearn program -> explicit prefix-tree JSON and a portable C expression.
@@ -554,74 +768,149 @@ def c_expr(node):
     raise ValueError(f"Unsupported gplearn function: {op}")
 
 
+
+def evaluate_symbolic_tree(node, X):
+    X = np.asarray(X, dtype=np.float64)
+    if "feature" in node:
+        return X[:, int(node["feature"])]
+    if "constant" in node:
+        return np.full(len(X), float(node["constant"]), dtype=np.float64)
+    op = node["op"]
+    args = [evaluate_symbolic_tree(arg, X) for arg in node["args"]]
+    if op == "add":
+        return args[0] + args[1]
+    if op == "sub":
+        return args[0] - args[1]
+    if op == "mul":
+        return args[0] * args[1]
+    if op == "div":
+        a, b = args
+        valid = np.abs(b) > 0.001
+        return np.where(valid, a / np.where(valid, b, 1.0), 1.0)
+    if op == "sqrt":
+        return np.sqrt(np.abs(args[0]))
+    if op == "log":
+        a = np.abs(args[0])
+        return np.where(a > 0.001, np.log(np.maximum(a, 1e-300)), 0.0)
+    if op == "abs":
+        return np.abs(args[0])
+    if op == "neg":
+        return -args[0]
+    raise ValueError(f"Unsupported symbolic operator: {op}")
+
+
 def export_symbolic(model, out_dir):
     program_obj = model._program
     tree = symbolic_tree(program_obj.program)
     node_count = int(getattr(program_obj, "length_", count_tree_nodes(tree)))
+    n_features = int(getattr(model, "n_features_in_", 0))
+    if n_features < 1:
+        raise ValueError("Symbolic model has no fitted n_features_in_.")
+    probe = np.random.default_rng(RANDOM_SEED).normal(size=(64, n_features))
+    portable = evaluate_symbolic_tree(tree, probe)
+    reference = np.asarray(model.predict(probe), dtype=float).reshape(-1)
+    parity_error = validate_mean_export(
+        reference, portable, "symbolic_regression", atol=2e-5, rtol=2e-5
+    )
     (out_dir / "equation.json").write_text(json.dumps(tree, indent=2), encoding="utf-8")
     expr = c_expr(tree)
     c_source = f'''#include <math.h>\n\nstatic inline double pdiv(double a, double b) {{ return fabs(b) > 0.001 ? a / b : 1.0; }}\nstatic inline double psqrt(double a) {{ return sqrt(fabs(a)); }}\nstatic inline double plog(double a) {{ return fabs(a) > 0.001 ? log(fabs(a)) : 0.0; }}\n\n// Returns standardized SOH; apply target_scale and target_mean from metadata.json.\ndouble battery_symbolic_predict(const double *x) {{ return {expr}; }}\n'''
     (out_dir / "equation.c").write_text(c_source, encoding="utf-8")
     return {"model_format": "symbolic_c_json", "equation_node_count": node_count,
-            "equation_file": "equation.c", "expression_file": "equation.json"}
+            "equation_file": "equation.c", "expression_file": "equation.json",
+            "parity_max_abs_error_scaled_target": parity_error}
+
 
 
 def export_one(model_name, force=False):
     source = ROOT / f"{model_name}.joblib"
     if not source.exists():
         raise FileNotFoundError(f"Missing trained artifact: {source}")
-    out_dir = OPT_ROOT / model_name
-    if out_dir.exists():
-        if not force:
-            raise FileExistsError(
-                f"Optimized export already exists: {out_dir}. Use --force to replace it."
-            )
-        import shutil
-        shutil.rmtree(out_dir)
-    out_dir.mkdir(parents=True, exist_ok=True)
 
+    # Load and validate before touching an existing optimized export.
     bundle = joblib.load(source)
-    if not isinstance(bundle, dict) or bundle.get("model_name") != model_name:
+    if not isinstance(bundle, dict):
         raise ValueError(f"Unexpected bundle structure in {source}")
+    contract = validate_bundle_contract(bundle, model_name)
     metadata = extract_preprocessing(bundle)
-    model = bundle["model"]
+    metadata.update(contract)
+    metadata["raw_feature_contract_version"] = 2
+    metadata["predictive_target_units"] = "SOH percentage points; inverse target scaling required"
 
-    if model_name in {"gpr_rbf", "gpr_matern", "gpr_ard"}:
-        info = export_gpr(model, out_dir, model_name)
-    elif model_name == "svr":
-        info = export_svr(model, out_dir)
-    elif model_name == "random_forest":
-        info = export_random_forest(model, out_dir)
-    elif model_name == "xgboost":
-        info = export_xgboost(model, out_dir)
-    elif model_name in {"wide_nn", "deep_nn", "wide_deep_nn", "bilstm"}:
-        info = export_neural(model_name, model, metadata, out_dir)
-    elif model_name == "sparse_gpr":
-        info = export_sparse_gpr(model, out_dir)
-    elif model_name == "deep_kernel_gpr":
-        info = export_deep_kernel_gpr(model, out_dir)
-    elif model_name == "symbolic_regression":
-        info = export_symbolic(model, out_dir)
-    else:
-        raise ValueError(f"No exporter is defined for {model_name}.")
+    out_dir = OPT_ROOT / model_name
+    if out_dir.exists() and not force:
+        raise FileExistsError(
+            f"Optimized export already exists: {out_dir}. Use --force to replace it."
+        )
 
-    metadata.update(info)
-    metadata.update({
-        "format_version": 2,
-        "model_name": model_name,
-        "source_joblib": source.name,
-        "source_joblib_size_bytes": source.stat().st_size,
-        "target": bundle.get("target", "soh_pct"),
-        "training_cycle_count": int(bundle.get("training_cycle_count", -1)),
-        "training_cells": list(bundle.get("training_cells", [])),
-        "note": "Original joblib remains unchanged. ONNX engines should be built on target Orin Nano.",
-    })
-    (out_dir / "metadata.json").write_text(
-        json.dumps(metadata, indent=2, default=_jsonable), encoding="utf-8"
-    )
-    return {"model": model_name, "status": "ok", "format": info["model_format"],
-            "output": str(out_dir)}
+    import shutil
+    OPT_ROOT.mkdir(parents=True, exist_ok=True)
+    stage_dir = Path(tempfile.mkdtemp(prefix=f".{model_name}.staging.", dir=OPT_ROOT))
+    backup_dir = OPT_ROOT / f".{model_name}.backup"
 
+    try:
+        model = bundle["model"]
+        if model_name in {"gpr_rbf", "gpr_matern", "gpr_ard"}:
+            info = export_gpr(model, stage_dir, model_name)
+        elif model_name == "svr":
+            info = export_svr(model, stage_dir)
+        elif model_name == "random_forest":
+            info = export_random_forest(model, stage_dir)
+        elif model_name == "xgboost":
+            info = export_xgboost(model, stage_dir)
+        elif model_name in {"wide_nn", "deep_nn", "wide_deep_nn", "bilstm"}:
+            info = export_neural(model_name, model, metadata, stage_dir)
+        elif model_name == "sparse_gpr":
+            info = export_sparse_gpr(model, stage_dir)
+        elif model_name == "deep_kernel_gpr":
+            info = export_deep_kernel_gpr(model, stage_dir)
+        elif model_name == "symbolic_regression":
+            info = export_symbolic(model, stage_dir)
+        else:
+            raise ValueError(f"No exporter is defined for {model_name}.")
+
+        metadata.update(info)
+        metadata.update({
+            "format_version": 3,
+            "model_name": model_name,
+            "source_joblib": source.name,
+            "source_joblib_size_bytes": source.stat().st_size,
+            "target": bundle.get("target", "soh_pct"),
+            "training_cycle_count": int(bundle.get("training_cycle_count", -1)),
+            "training_cells": list(bundle.get("training_cells", [])),
+            "note": (
+                "Original joblib remains unchanged. Apply the preprocessing parameters in metadata.json "
+                "before inference. ONNX/TensorRT outputs must be validated on the target Jetson software stack."
+            ),
+        })
+        (stage_dir / "metadata.json").write_text(
+            json.dumps(metadata, indent=2, default=_jsonable), encoding="utf-8"
+        )
+
+        # Keep the previous working export until the replacement is complete.
+        if backup_dir.exists():
+            shutil.rmtree(backup_dir)
+        if out_dir.exists():
+            os.replace(out_dir, backup_dir)
+        try:
+            os.replace(stage_dir, out_dir)
+        except Exception:
+            if backup_dir.exists() and not out_dir.exists():
+                os.replace(backup_dir, out_dir)
+            raise
+        if backup_dir.exists():
+            shutil.rmtree(backup_dir)
+
+        return {
+            "model": model_name,
+            "status": "ok",
+            "format": info["model_format"],
+            "output": str(out_dir),
+            **contract,
+        }
+    finally:
+        if stage_dir.exists():
+            shutil.rmtree(stage_dir, ignore_errors=True)
 
 def main():
     parser = argparse.ArgumentParser(description="Translate trained baseline .joblib files to Jetson-friendly formats.")

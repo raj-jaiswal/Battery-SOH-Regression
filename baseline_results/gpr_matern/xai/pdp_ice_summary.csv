@@ -1,4 +1,4 @@
 feature,pdp_prediction_range
-num__elapsed_time_s__last,659.1530430509827
-num__elapsed_time_s__min,653.7470219694194
-num__elapsed_time_s__first,653.7470219694792
+num__voltage_q10_V,27.238170926801367
+num__cycle_order,12.724995871415388
+num__voltage_mean_V,15.672465080175812

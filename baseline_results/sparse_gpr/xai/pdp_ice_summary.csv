@@ -1,4 +1,4 @@
 feature,pdp_prediction_range
-num__current_A__min,1238.0896053987608
-num__elapsed_time_s__min,700.3825999932881
-num__elapsed_time_s__first,700.3832838590324
+num__current_abs_std_A,19.07714212894882
+num__voltage_std_V,18.147962647266922
+num__voltage_q10_V,13.01138879100462

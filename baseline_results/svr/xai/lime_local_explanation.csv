@@ -1,16 +1,16 @@
 feature_rule,local_weight
-num__cycle_index > 0.13,368.52774510043656
-num__voltage_V__mean <= -0.51,329.19753440839867
--0.35 < num__nominal_capacity_Ah__last <= 1.40,-233.9784434561646
--0.35 < num__nominal_capacity_Ah__max <= 1.40,-225.1969270319752
-num__current_A__first > 0.21,206.56043078320897
-num__current_A__std <= -0.60,-201.85138701257603
--0.35 < num__nominal_capacity_Ah__min <= 1.40,-199.67224633314268
--0.35 < num__nominal_capacity_Ah__mean <= 1.40,-193.19570679528016
--0.35 < num__nominal_capacity_Ah__first <= 1.40,-166.26499976167713
--0.13 < num__current_A__min <= 0.46,-121.45201057075151
--0.95 < num__elapsed_time_s__mean <= -0.42,-115.15151279267488
--0.96 < num__elapsed_time_s__max <= -0.41,-99.16676983638513
--0.96 < num__elapsed_time_s__last <= -0.41,-88.88151490987211
-num__missingindicator_voltage_V__std <= -0.60,86.5702193774601
-num__voltage_V__max <= 0.55,76.72423025963684
+num__voltage_q10_V <= -0.41,-18.95943071687268
+num__voltage_std_V > 0.00,9.303989881488514
+num__temperature_std_C <= -0.10,5.855271929258731
+num__voltage_mean_V <= -0.77,-5.497817646861312
+num__cycle_order <= -1.00,4.148253680808603
+num__current_abs_std_A > 0.44,3.7988996225895697
+num__temperature_min_C <= 0.18,2.918923237803816
+num__temperature_mean_C <= 0.17,-2.676246037781486
+num__voltage_max_V > 0.99,-2.4631035209077896
+cat__battery_family_CX2 <= 0.00,-1.4519653319452497
+cat__battery_family_CS2 <= 0.00,1.4187248439140765
+-0.98 < num__voltage_q90_V <= 0.15,-0.829346696505471
+-1.35 < num__voltage_min_V <= 0.60,0.6050454773935606
+num__current_abs_median_A > 0.16,-0.5592824689126225
+0.00 < cat__battery_family_NASA_18650 <= 1.00,-0.5015385079059378

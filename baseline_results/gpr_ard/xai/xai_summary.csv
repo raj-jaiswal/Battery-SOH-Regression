@@ -1,8 +1,8 @@
 method,status,top_features,details
-SHAP,ok,"num__missingindicator_voltage_V__std, num__missingindicator_temperature_C__std, num__voltage_V__mean, num__elapsed_time_s__last, num__missingindicator_temperature_C__mean",Permutation SHAP on transformed features; global mean absolute attribution.
-LIME,ok,"num__missingindicator_temperature_C__first <= -1.46, num__missingindicator_temperature_C__min <= -1.46, num__missingindicator_temperature_C__std <= -1.46, num__missingindicator_temperature_C__max <= -1.46, num__missingindicator_temperature_C__last <= -1.46",Local surrogate explanation for one representative cycle.
-Permutation sensitivity,ok,"num__current_A__min, num__elapsed_time_s__first, num__elapsed_time_s__min, num__elapsed_time_s__mean, num__elapsed_time_s__last","Top-variance features; increase in fitted-data MAE after shuffling. Descriptive, not a held-out score."
-PDP,ok,"num__missingindicator_voltage_V__std, num__missingindicator_temperature_C__std, num__voltage_V__mean",One-way partial dependence for top features in transformed feature space.
-ICE,ok,"num__missingindicator_voltage_V__std, num__missingindicator_temperature_C__std, num__voltage_V__mean",Individual conditional expectation curves for representative cycles.
-ARD length-scale relevance,ok,"num__missingindicator_elapsed_time_s__first, num__missingindicator_elapsed_time_s__max, cat__battery_technology_UNKNOWN, num__missingindicator_elapsed_time_s__last, num__missingindicator_current_A__first",Shorter optimized ARD length scales imply greater sensitivity.
+SHAP,ok,"num__voltage_q10_V, num__current_abs_median_A, num__voltage_std_V, num__current_abs_std_A, num__missingindicator_temperature_std_C",Permutation SHAP on transformed features; global mean absolute attribution.
+LIME,ok,"num__voltage_q10_V <= -0.41, num__voltage_std_V > 0.00, num__current_abs_median_A > 0.16, num__cycle_order <= -1.00, cat__source_dataset_CALCE <= 0.00",Local surrogate explanation for one representative cycle.
+Permutation sensitivity,ok,"num__voltage_q10_V, num__current_abs_median_A, num__voltage_median_V, num__voltage_q90_V, num__voltage_std_V","Top-variance features; increase in fitted-data MAE after shuffling. Descriptive, not a held-out score."
+PDP,ok,"num__voltage_q10_V, num__current_abs_median_A, num__voltage_std_V",One-way partial dependence for top features in transformed feature space.
+ICE,ok,"num__voltage_q10_V, num__current_abs_median_A, num__voltage_std_V",Individual conditional expectation curves for representative cycles.
+ARD length-scale relevance,ok,"num__current_abs_median_A, cat__source_dataset_CALCE, cat__battery_family_NASA_18650, cat__source_dataset_NASA, num__missingindicator_temperature_max_C",Shorter optimized ARD length scales imply greater sensitivity.
 Symbolic equation + sensitivities,not_applicable,,Specific to standalone symbolic regression; proposed WD-GPR-SR residual equation is a separate model.

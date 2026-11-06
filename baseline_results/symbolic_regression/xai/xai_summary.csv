@@ -1,8 +1,8 @@
 method,status,top_features,details
-SHAP,ok,"num__elapsed_time_s__first, num__voltage_V__mean, num__voltage_V__min, num__voltage_V__max, num__voltage_V__first",Permutation SHAP on transformed features; global mean absolute attribution.
-LIME,ok,"num__elapsed_time_s__first <= -0.95, num__missingindicator_current_A__std <= -0.60, num__temperature_C__first <= 0.19, num__missingindicator_temperature_C__min <= -1.46, -0.35 < num__nominal_capacity_Ah__max <= 1.40",Local surrogate explanation for one representative cycle.
-Permutation sensitivity,ok,"num__elapsed_time_s__first, num__elapsed_time_s__min, num__elapsed_time_s__std, num__current_A__mean, num__voltage_V__first","Top-variance features; increase in fitted-data MAE after shuffling. Descriptive, not a held-out score."
-PDP,ok,"num__elapsed_time_s__first, cat__operation_DISCHARGE",One-way partial dependence for top features in transformed feature space.
-ICE,ok,"num__elapsed_time_s__first, cat__operation_DISCHARGE",Individual conditional expectation curves for representative cycles.
+SHAP,ok,"num__voltage_q10_V, cat__source_dataset_NASA, num__voltage_std_V, num__cycle_order, num__voltage_min_V",Permutation SHAP on transformed features; global mean absolute attribution.
+LIME,ok,"num__voltage_q10_V <= -0.41, num__temperature_mean_C <= 0.17, 0.00 < cat__battery_family_NASA_18650 <= 1.00, 0.00 < cat__source_dataset_NASA <= 1.00, cat__battery_family_CS2 <= 0.00",Local surrogate explanation for one representative cycle.
+Permutation sensitivity,ok,"num__voltage_q10_V, num__voltage_max_V, num__voltage_median_V, num__current_abs_median_A, num__cycle_order","Top-variance features; increase in fitted-data MAE after shuffling. Descriptive, not a held-out score."
+PDP,ok,"num__voltage_q10_V, cat__source_dataset_NASA, cat__battery_family_CX2",One-way partial dependence for top features in transformed feature space.
+ICE,ok,"num__voltage_q10_V, cat__source_dataset_NASA, cat__battery_family_CX2",Individual conditional expectation curves for representative cycles.
 ARD length-scale relevance,not_applicable,,Specific to the ARD-GPR baseline.
-Symbolic equation + sensitivities,ok,"num__elapsed_time_s__first, num__voltage_V__mean, num__voltage_V__min, num__voltage_V__max, num__voltage_V__first",Node count=1; SOH_pct = 1263.5 + 1292.8 * (X28)
+Symbolic equation + sensitivities,ok,"num__voltage_q10_V, cat__source_dataset_NASA, num__voltage_std_V, num__cycle_order, num__voltage_min_V","Node count=6; SOH_pct = 76.464 + 17.733 * (mul(X6, sqrt(add(-0.735, X20))))"

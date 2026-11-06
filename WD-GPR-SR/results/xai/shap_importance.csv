@@ -1,0 +1,11 @@
+feature,mean_abs_SHAP
+num__elapsed_time_s__first,182.73232663444475
+num__elapsed_time_s__min,168.54134078017137
+num__voltage_V__last,57.26247400278271
+num__current_A__last,51.66466482460652
+num__elapsed_time_s__std,44.06280098824189
+num__current_A__mean,8.946804235243192
+num__temperature_C__first,8.793149414963892
+num__voltage_V__first,5.818859689969358
+num__temperature_C__mean,2.9247369696664975
+num__temperature_C__min,0.6165663721062771
