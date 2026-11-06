@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Jetson Orin Nano hardware-only benchmark for symbolic_regression optimized export."""
+"""Optimized Jetson Orin Nano inference benchmark for symbolic_regression."""
 from jetson_runtime import main
 
 if __name__ == "__main__":

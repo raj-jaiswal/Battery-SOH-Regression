@@ -1,15 +1,12 @@
-# Runtime dependencies shared by all optimized baseline runners.
-numpy>=2.0,<3.0
-pandas>=2.2
-pyarrow>=18.0
+# Base dependencies for the optimized, cycle-level Jetson inference runtime.
+numpy>=1.26,<3
+pandas>=2.1
+pyarrow>=15
 
-# Required only for the XGBoost baseline (08_xgboost.py).
-xgboost>=2.1
+# Required only for 08_xgboost.py. Install an aarch64 / JetPack-compatible build.
+xgboost>=2.0
 
-# Optional ONNX Runtime fallback for ONNX models when no TensorRT engine is used.
-# On Jetson, install an ONNX Runtime build compatible with your JetPack release.
-# Do not blindly install a generic x86_64 wheel on aarch64.
+# Optional ONNX Runtime: use a build compatible with JetPack / Python / aarch64.
 # onnxruntime
 
-# TensorRT and PyCUDA are supplied/installed through the NVIDIA JetPack stack.
-# They are not installed via this requirements file.
+# TensorRT, CUDA and PyCUDA are provided by NVIDIA JetPack.
