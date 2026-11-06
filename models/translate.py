@@ -500,7 +500,9 @@ def export_svr(model, out_dir):
 
 
 def _predict_random_forest_arrays(X, arrays):
-    X = np.asarray(X, dtype=np.float64)
+    # sklearn's tree predictors cast inputs to float32 before threshold traversal.
+    # Match that exactly; float64 probes can take a different branch at thresholds.
+    X = np.asarray(X, dtype=np.float32)
     left, right = arrays["left"], arrays["right"]
     feature, threshold, value = arrays["feature"], arrays["threshold"], arrays["value"]
     node_count = arrays["node_count"]
@@ -715,9 +717,29 @@ def export_deep_kernel_gpr(model, out_dir):
         z_sample = extractor(torch.from_numpy(sample_x)).cpu().double().numpy()
     portable = mean + rbf_kernel(z_sample, train_z, lengthscale, outputscale) @ alpha
     err = validate_mean_export(reference, portable, "deep_kernel_gpr", atol=1e-2, rtol=1e-2)
+
+    onnx_feature_parity_status = "onnxruntime_unavailable"
+    onnx_feature_parity_max_abs_error = None
+    try:
+        import onnxruntime as ort
+        session = ort.InferenceSession(
+            str(out_dir / "feature_extractor.onnx"),
+            providers=["CPUExecutionProvider"],
+        )
+        input_name = session.get_inputs()[0].name
+        onnx_z = session.run(None, {input_name: np.asarray(sample_x, dtype=np.float32)})[0]
+        onnx_feature_parity_max_abs_error = validate_mean_export(
+            z_sample, onnx_z, "deep_kernel_feature_extractor", atol=2e-4, rtol=2e-4
+        )
+        onnx_feature_parity_status = "passed"
+    except ImportError:
+        pass
+
     return {"model_format": "deep_kernel_gpr_numpy_plus_onnx", **onnx_info,
             "gp_training_points": int(len(train_z)),
             "parity_max_abs_error_scaled_target": err,
+            "onnx_feature_parity_status": onnx_feature_parity_status,
+            "onnx_feature_parity_max_abs_error": onnx_feature_parity_max_abs_error,
             "predictive_variance_exported": False}
 
 

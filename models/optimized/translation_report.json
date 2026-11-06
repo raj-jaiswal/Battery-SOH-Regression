@@ -1,0 +1,119 @@
+[
+  {
+    "model": "gpr_rbf",
+    "status": "ok",
+    "format": "exact_gpr_numpy",
+    "output": "/home/raj/Documents/Projects/PBL/models/optimized/gpr_rbf",
+    "raw_feature_count": 17,
+    "transformed_feature_count": 24,
+    "feature_contract_validated": true
+  },
+  {
+    "model": "gpr_matern",
+    "status": "ok",
+    "format": "exact_gpr_numpy",
+    "output": "/home/raj/Documents/Projects/PBL/models/optimized/gpr_matern",
+    "raw_feature_count": 17,
+    "transformed_feature_count": 24,
+    "feature_contract_validated": true
+  },
+  {
+    "model": "gpr_ard",
+    "status": "ok",
+    "format": "exact_gpr_numpy",
+    "output": "/home/raj/Documents/Projects/PBL/models/optimized/gpr_ard",
+    "raw_feature_count": 17,
+    "transformed_feature_count": 24,
+    "feature_contract_validated": true
+  },
+  {
+    "model": "sparse_gpr",
+    "status": "ok",
+    "format": "sparse_gpr_numpy",
+    "output": "/home/raj/Documents/Projects/PBL/models/optimized/sparse_gpr",
+    "raw_feature_count": 17,
+    "transformed_feature_count": 24,
+    "feature_contract_validated": true
+  },
+  {
+    "model": "deep_kernel_gpr",
+    "status": "ok",
+    "format": "deep_kernel_gpr_numpy_plus_onnx",
+    "output": "/home/raj/Documents/Projects/PBL/models/optimized/deep_kernel_gpr",
+    "raw_feature_count": 17,
+    "transformed_feature_count": 24,
+    "feature_contract_validated": true
+  },
+  {
+    "model": "svr",
+    "status": "ok",
+    "format": "rbf_svr_numpy",
+    "output": "/home/raj/Documents/Projects/PBL/models/optimized/svr",
+    "raw_feature_count": 17,
+    "transformed_feature_count": 24,
+    "feature_contract_validated": true
+  },
+  {
+    "model": "random_forest",
+    "status": "ok",
+    "format": "random_forest_arrays",
+    "output": "/home/raj/Documents/Projects/PBL/models/optimized/random_forest",
+    "raw_feature_count": 17,
+    "transformed_feature_count": 24,
+    "feature_contract_validated": true
+  },
+  {
+    "model": "xgboost",
+    "status": "ok",
+    "format": "xgboost_ubjson",
+    "output": "/home/raj/Documents/Projects/PBL/models/optimized/xgboost",
+    "raw_feature_count": 17,
+    "transformed_feature_count": 24,
+    "feature_contract_validated": true
+  },
+  {
+    "model": "wide_nn",
+    "status": "ok",
+    "format": "onnx_neural",
+    "output": "/home/raj/Documents/Projects/PBL/models/optimized/wide_nn",
+    "raw_feature_count": 17,
+    "transformed_feature_count": 24,
+    "feature_contract_validated": true
+  },
+  {
+    "model": "deep_nn",
+    "status": "ok",
+    "format": "onnx_neural",
+    "output": "/home/raj/Documents/Projects/PBL/models/optimized/deep_nn",
+    "raw_feature_count": 17,
+    "transformed_feature_count": 24,
+    "feature_contract_validated": true
+  },
+  {
+    "model": "wide_deep_nn",
+    "status": "ok",
+    "format": "onnx_neural",
+    "output": "/home/raj/Documents/Projects/PBL/models/optimized/wide_deep_nn",
+    "raw_feature_count": 17,
+    "transformed_feature_count": 24,
+    "feature_contract_validated": true
+  },
+  {
+    "model": "bilstm",
+    "status": "ok",
+    "format": "onnx_neural",
+    "output": "/home/raj/Documents/Projects/PBL/models/optimized/bilstm",
+    "raw_feature_count": 17,
+    "transformed_feature_count": 24,
+    "feature_contract_validated": true
+  },
+  {
+    "model": "symbolic_regression",
+    "status": "ok",
+    "format": "symbolic_c_json",
+    "output": "/home/raj/Documents/Projects/PBL/models/optimized/symbolic_regression",
+    "raw_feature_count": 17,
+    "transformed_feature_count": 24,
+    "feature_contract_validated": true
+  }
+]

@@ -1,3 +1,24 @@
 {
-  "feature": 28
+  "op": "mul",
+  "args": [
+    {
+      "feature": 6
+    },
+    {
+      "op": "sqrt",
+      "args": [
+        {
+          "op": "add",
+          "args": [
+            {
+              "constant": -0.7353450640858794
+            },
+            {
+              "feature": 20
+            }
+          ]
+        }
+      ]
+    }
+  ]
 }
