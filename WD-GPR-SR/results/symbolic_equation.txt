@@ -1,2 +1,2 @@
 SOH_scaled = GP_mean_scaled + r(x, normalized_GP_uncertainty)
-(num__voltage_std_V * -0.03718976144)
+(-(-0.06109445307))

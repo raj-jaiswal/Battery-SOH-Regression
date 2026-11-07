@@ -29,14 +29,14 @@
     "source_dataset",
     "battery_family"
   ],
-  "batch_size": 512,
+  "batch_size": 256,
   "latent_dim": 12,
   "inducing_points": 64,
-  "inner_gp_epochs": 12,
-  "final_gp_epochs": 30,
+  "inner_gp_epochs": 18,
+  "final_gp_epochs": 35,
   "sr_population_size": 160,
   "sr_generations": 10,
-  "symbolic_uncertainty_weight": "clip(gp_std / median_gp_std, 0.25, 4.0)",
+  "symbolic_uncertainty_weight": "clip(median_gp_std / (gp_std + 1e-4), 0.25, 4.0)",
   "smoke_test": false,
   "note": "Baseline metrics currently use the baseline notebook seed (typically 42); WD-GPR-SR reports 3 seeds as specified by the PDF. For a strictly matched multi-seed model comparison, rerun all baseline notebooks with the same three seeds."
 }
