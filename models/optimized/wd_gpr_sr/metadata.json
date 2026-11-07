@@ -1,0 +1,95 @@
+{
+  "model_name": "wd_gpr_sr",
+  "format_version": 1,
+  "input_features": [
+    "num__cycle_order",
+    "num__voltage_mean_V",
+    "num__voltage_std_V",
+    "num__voltage_min_V",
+    "num__voltage_max_V",
+    "num__voltage_median_V",
+    "num__voltage_q10_V",
+    "num__voltage_q90_V",
+    "num__current_abs_mean_A",
+    "num__current_abs_std_A",
+    "num__current_abs_median_A",
+    "num__temperature_mean_C",
+    "num__temperature_std_C",
+    "num__temperature_min_C",
+    "num__temperature_max_C",
+    "num__missingindicator_temperature_mean_C",
+    "num__missingindicator_temperature_std_C",
+    "num__missingindicator_temperature_min_C",
+    "num__missingindicator_temperature_max_C",
+    "cat__source_dataset_CALCE",
+    "cat__source_dataset_NASA",
+    "cat__battery_family_CS2",
+    "cat__battery_family_CX2",
+    "cat__battery_family_NASA_18650"
+  ],
+  "transformed_input_dim": 24,
+  "gp_config": {
+    "input_dim": 24,
+    "latent_dim": 12,
+    "kernel_mode": "wide_deep"
+  },
+  "onnx_models": {
+    "wide_branch": "wide_branch.onnx",
+    "deep_feature_extractor": "deep_feature_extractor.onnx"
+  },
+  "onnx_input_shape": [
+    null,
+    24
+  ],
+  "tensorrt_build_script": "build_tensorrt_engines.sh",
+  "numeric_features": [
+    "cycle_order",
+    "voltage_mean_V",
+    "voltage_std_V",
+    "voltage_min_V",
+    "voltage_max_V",
+    "voltage_median_V",
+    "voltage_q10_V",
+    "voltage_q90_V",
+    "current_abs_mean_A",
+    "current_abs_std_A",
+    "current_abs_median_A",
+    "temperature_mean_C",
+    "temperature_std_C",
+    "temperature_min_C",
+    "temperature_max_C"
+  ],
+  "categorical_features": [
+    "source_dataset",
+    "battery_family"
+  ],
+  "target_mean": 76.46375729825748,
+  "target_scale": 17.733211844037626,
+  "symbolic_feature_indices": [
+    2,
+    3,
+    12,
+    0,
+    14,
+    5
+  ],
+  "symbolic_feature_names": [
+    "num__voltage_std_V",
+    "num__voltage_min_V",
+    "num__temperature_std_C",
+    "num__cycle_order",
+    "num__temperature_max_C",
+    "num__voltage_median_V"
+  ],
+  "uncertainty_scale": 0.7860949039459229,
+  "symbolic_residual_std_scaled": 0.24429713857341107,
+  "equation_node_count": 3,
+  "equation_c": "equation.c",
+  "equation_json": "equation.json",
+  "preprocessing_json": "preprocessing.json",
+  "onnx_exports": {
+    "wide_branch": "exported",
+    "deep_feature_extractor": "exported"
+  },
+  "note": "Inducing points and GP state are saved. A Jetson-side covariance/ONNX/TensorRT runner must apply the saved preprocessing and kernel equations; TensorRT engines are device-specific and are not built on the laptop."
+}

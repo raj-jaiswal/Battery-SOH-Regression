@@ -1,0 +1,154 @@
+{
+  "feature_columns": [
+    "cycle_order",
+    "voltage_mean_V",
+    "voltage_std_V",
+    "voltage_min_V",
+    "voltage_max_V",
+    "voltage_median_V",
+    "voltage_q10_V",
+    "voltage_q90_V",
+    "current_abs_mean_A",
+    "current_abs_std_A",
+    "current_abs_median_A",
+    "temperature_mean_C",
+    "temperature_std_C",
+    "temperature_min_C",
+    "temperature_max_C",
+    "source_dataset",
+    "battery_family"
+  ],
+  "numeric_features": [
+    "cycle_order",
+    "voltage_mean_V",
+    "voltage_std_V",
+    "voltage_min_V",
+    "voltage_max_V",
+    "voltage_median_V",
+    "voltage_q10_V",
+    "voltage_q90_V",
+    "current_abs_mean_A",
+    "current_abs_std_A",
+    "current_abs_median_A",
+    "temperature_mean_C",
+    "temperature_std_C",
+    "temperature_min_C",
+    "temperature_max_C"
+  ],
+  "categorical_features": [
+    "source_dataset",
+    "battery_family"
+  ],
+  "transformed_feature_names": [
+    "num__cycle_order",
+    "num__voltage_mean_V",
+    "num__voltage_std_V",
+    "num__voltage_min_V",
+    "num__voltage_max_V",
+    "num__voltage_median_V",
+    "num__voltage_q10_V",
+    "num__voltage_q90_V",
+    "num__current_abs_mean_A",
+    "num__current_abs_std_A",
+    "num__current_abs_median_A",
+    "num__temperature_mean_C",
+    "num__temperature_std_C",
+    "num__temperature_min_C",
+    "num__temperature_max_C",
+    "num__missingindicator_temperature_mean_C",
+    "num__missingindicator_temperature_std_C",
+    "num__missingindicator_temperature_min_C",
+    "num__missingindicator_temperature_max_C",
+    "cat__source_dataset_CALCE",
+    "cat__source_dataset_NASA",
+    "cat__battery_family_CS2",
+    "cat__battery_family_CX2",
+    "cat__battery_family_NASA_18650"
+  ],
+  "numeric_preprocessing": {
+    "imputer_statistics": [
+      89.0,
+      3.535185685519287,
+      0.2562660794212195,
+      2.6996986865997314,
+      4.10903787612915,
+      3.557952642440796,
+      3.2333834963195156,
+      3.830291365963352,
+      1.3358835115553425,
+      0.00015399609752494477,
+      1.0997933149337769,
+      31.81791430597514,
+      3.5832022415279847,
+      23.762265406304365,
+      38.30361961653517
+    ],
+    "indicator_features": [
+      11,
+      12,
+      13,
+      14
+    ],
+    "scaler_mean": [
+      105.44056172436316,
+      3.517345169712622,
+      0.26655276361406854,
+      2.5405751987123457,
+      4.106424197353289,
+      3.5432444787131923,
+      3.2079599032051753,
+      3.8172783788725013,
+      1.318296158878182,
+      0.31281837549897673,
+      1.2307534118145116,
+      30.31979421832939,
+      3.723984215454457,
+      22.376439366423043,
+      37.328541032273925,
+      0.5816459830176355,
+      0.5816459830176355,
+      0.5816459830176355,
+      0.5816459830176355
+    ],
+    "scaler_scale": [
+      79.60252475373987,
+      0.1369191803817529,
+      0.05897030559030893,
+      0.267250408165557,
+      0.0795699799633949,
+      0.12332362483719665,
+      0.25169387971153884,
+      0.10510028788494419,
+      0.6285638618223215,
+      0.5535741548167362,
+      0.7629921919552752,
+      8.898342425065483,
+      1.3749965046049857,
+      7.87251304446821,
+      10.217420768380766,
+      0.4932888945203246,
+      0.4932888945203246,
+      0.4932888945203246,
+      0.4932888945203246
+    ]
+  },
+  "categorical_preprocessing": {
+    "imputer_statistics": [
+      "CALCE",
+      "NASA_18650"
+    ],
+    "categories": [
+      [
+        "CALCE",
+        "NASA"
+      ],
+      [
+        "CS2",
+        "CX2",
+        "NASA_18650"
+      ]
+    ]
+  },
+  "target_mean": 76.46375729825748,
+  "target_scale": 17.733211844037626
+}

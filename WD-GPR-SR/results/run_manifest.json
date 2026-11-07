@@ -1,0 +1,42 @@
+{
+  "model": "WD-GPR-SR",
+  "target": "soh_pct",
+  "seeds": [
+    42,
+    43,
+    44
+  ],
+  "outer_protocol": "sorted-cell LOCO, identical cell groups/fold numbers as baseline notebooks",
+  "inner_protocol": "3-fold GroupKFold on outer-training cells for cross-fitted GP residuals; disjoint group calibration subset for symbolic residual sigma",
+  "numeric_features": [
+    "cycle_order",
+    "voltage_mean_V",
+    "voltage_std_V",
+    "voltage_min_V",
+    "voltage_max_V",
+    "voltage_median_V",
+    "voltage_q10_V",
+    "voltage_q90_V",
+    "current_abs_mean_A",
+    "current_abs_std_A",
+    "current_abs_median_A",
+    "temperature_mean_C",
+    "temperature_std_C",
+    "temperature_min_C",
+    "temperature_max_C"
+  ],
+  "categorical_features": [
+    "source_dataset",
+    "battery_family"
+  ],
+  "batch_size": 512,
+  "latent_dim": 12,
+  "inducing_points": 64,
+  "inner_gp_epochs": 12,
+  "final_gp_epochs": 30,
+  "sr_population_size": 160,
+  "sr_generations": 10,
+  "symbolic_uncertainty_weight": "clip(gp_std / median_gp_std, 0.25, 4.0)",
+  "smoke_test": false,
+  "note": "Baseline metrics currently use the baseline notebook seed (typically 42); WD-GPR-SR reports 3 seeds as specified by the PDF. For a strictly matched multi-seed model comparison, rerun all baseline notebooks with the same three seeds."
+}

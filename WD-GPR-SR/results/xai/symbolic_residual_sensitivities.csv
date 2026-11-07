@@ -1,0 +1,8 @@
+symbolic_input,mean_abs_d_residual_d_input,median_abs_d_residual_d_input
+num__voltage_std_V,0.037189761436265414,0.03718976143626644
+num__voltage_min_V,0.0,0.0
+num__temperature_std_C,0.0,0.0
+num__cycle_order,0.0,0.0
+num__temperature_max_C,0.0,0.0
+num__voltage_median_V,0.0,0.0
+normalized_gp_uncertainty,0.0,0.0

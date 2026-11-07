@@ -1,8 +1,7 @@
-method,status,details
-SHAP,ok,Permutation SHAP on up to 10 high-variance transformed features.
-LIME,ok,Local surrogate explanation for one representative cycle.
-PDP,ok,Partial dependence for top transformed features.
-ICE,ok,Individual conditional expectation curves for representative cycles.
-ARD length-scale relevance,ok,"ARD relevance in learned deep latent dimensions, not direct raw-feature length scales."
-Symbolic equation sensitivities,ok,Finite-difference dr/dx; equation nodes=29.
-Wide-branch relevance,ok,Norm of learned wide-branch weights per transformed input.
+method,status,detail
+SHAP,ok,"Permutation SHAP on final all-data fit; explanatory, not test metrics."
+LIME,ok,One local surrogate explanation on a representative cycle.
+PDP,ok,Mean prediction curves for selected transformed features.
+ICE,ok,Individual curves for 12 representative cycles.
+ARD length-scale relevance,ok,"Relevance is for learned latent dimensions, not a direct raw-feature ranking."
+Symbolic equation sensitivities,ok,Finite-difference sensitivities of the discovered residual equation.

@@ -1,29 +1,101 @@
 {
-  "MAE": 268.0160227368733,
-  "MSE": 186566.20384809916,
-  "RMSE": 431.9331011257405,
-  "R2": 0.8883681283457981,
-  "MAPE_pct": 36551837232.11911,
-  "NLL": 8.219941176595878,
-  "PICP_95_pct": 99.78014348530434,
-  "MPIW_95": 6475.396637499367,
-  "model": "wd_gpr_sr",
-  "seed": 42,
-  "n_cells": 47,
-  "n_cycles": 8642,
-  "mean_fold_fit_time_s": 5.974506276212777,
-  "total_loco_fit_time_s": 280.8017949820005,
-  "mean_predict_latency_ms_per_sample": 0.1908852129712867,
-  "WD_GP_without_SR_MAE": 121.82936273207116,
-  "WD_GP_without_SR_RMSE": 211.95626589611015,
-  "WD_GP_without_SR_R2": 0.9731188557687598,
-  "equation_node_count_mean": 11.191489361702128,
-  "jetson_latency_ms": NaN,
-  "jetson_energy_J": NaN,
-  "full_fit_time_s": 5.920395954000014,
-  "inference_latency_ms_per_sample": 0.07641632812749322,
-  "model_artifact_size_MB": 0.05442619323730469,
-  "host_process_RSS_MB_after_fit": 5613.19921875,
-  "equation_node_count": 29,
-  "symbolic_status_final": "gplearn"
+  "seed_metrics": [
+    {
+      "seed": 42,
+      "MAE": 12.055355123405548,
+      "MSE": 349.7446295884986,
+      "RMSE": 18.701460627140825,
+      "R2": -0.11218299363984507,
+      "MAPE_pct": 17.22049307332278,
+      "NLL": 5.708359550021973,
+      "PICP_95_pct": 69.1541476159373,
+      "MPIW_95": 31.535055865400526,
+      "n_cells": 47,
+      "n_cycles": 6124,
+      "total_loco_fit_time_s": 449.819290067
+    },
+    {
+      "seed": 43,
+      "MAE": 12.02652214773015,
+      "MSE": 204.91099491968473,
+      "RMSE": 14.314712533602787,
+      "R2": 0.34838592367341237,
+      "MAPE_pct": 17.079731345730963,
+      "NLL": 4.598426874212733,
+      "PICP_95_pct": 60.875244937949056,
+      "MPIW_95": 32.597489858069196,
+      "n_cells": 47,
+      "n_cycles": 6124,
+      "total_loco_fit_time_s": 451.3616837310003
+    },
+    {
+      "seed": 44,
+      "MAE": 8.85371119146491,
+      "MSE": 143.33271428192555,
+      "RMSE": 11.972164143626062,
+      "R2": 0.54420398836672,
+      "MAPE_pct": 13.1811059949958,
+      "NLL": 4.302785220424498,
+      "PICP_95_pct": 73.66100587851078,
+      "MPIW_95": 32.67435588662878,
+      "n_cells": 47,
+      "n_cycles": 6124,
+      "total_loco_fit_time_s": 459.46483772400074
+    }
+  ],
+  "mean_std": [
+    {
+      "metric": "MAE",
+      "mean": 10.978529487533535,
+      "std": 1.8402030943900072,
+      "mean_plus_minus_std": "10.9785 \u00b1 1.8402"
+    },
+    {
+      "metric": "MSE",
+      "mean": 232.66277959670296,
+      "std": 105.96740470400158,
+      "mean_plus_minus_std": "232.6628 \u00b1 105.9674"
+    },
+    {
+      "metric": "RMSE",
+      "mean": 14.996112434789891,
+      "std": 3.416004560852399,
+      "mean_plus_minus_std": "14.9961 \u00b1 3.4160"
+    },
+    {
+      "metric": "R2",
+      "mean": 0.26013563946676244,
+      "std": 0.33697485371142694,
+      "mean_plus_minus_std": "0.2601 \u00b1 0.3370"
+    },
+    {
+      "metric": "MAPE_pct",
+      "mean": 15.827110138016513,
+      "std": 2.2925873832093604,
+      "mean_plus_minus_std": "15.8271 \u00b1 2.2926"
+    },
+    {
+      "metric": "NLL",
+      "mean": 4.869857214886401,
+      "std": 0.7410570972499454,
+      "mean_plus_minus_std": "4.8699 \u00b1 0.7411"
+    },
+    {
+      "metric": "PICP_95_pct",
+      "mean": 67.89679947746572,
+      "std": 6.484952888285846,
+      "mean_plus_minus_std": "67.8968 \u00b1 6.4850"
+    },
+    {
+      "metric": "MPIW_95",
+      "mean": 32.26896720336617,
+      "std": 0.6367467986433221,
+      "mean_plus_minus_std": "32.2690 \u00b1 0.6367"
+    }
+  ],
+  "equation_node_count": 3,
+  "final_fit_time_s": 10.211260825999943,
+  "equation": "(num__voltage_std_V * -0.03718976144)",
+  "artifact_path": "/home/raj/Documents/Projects/PBL/models/wd_gpr_sr.joblib",
+  "artifact_size_MB": 0.03422355651855469
 }
