@@ -225,57 +225,8 @@ All standard scalers, feature imputers, inducing point initializations, and symb
 
 \begin{figure}[pos=htbp]
 \centering
-\begin{tikzpicture}[
-    >=Latex,
-    scale=0.86, transform shape,
-    box/.style={rectangle, draw=black!75, rounded corners=3pt, thick, align=center, fill=white, inner sep=5pt, font=\scriptsize, text width=2.6cm},
-    data/.style={rectangle, draw=blue!80, fill=blue!8, rounded corners=3pt, thick, align=center, inner sep=5pt, font=\scriptsize, text width=2.5cm},
-    proc/.style={rectangle, draw=orange!80, fill=orange!8, rounded corners=3pt, thick, align=center, inner sep=5pt, font=\scriptsize, text width=2.6cm},
-    gp/.style={rectangle, draw=purple!80, fill=purple!8, rounded corners=3pt, thick, align=center, inner sep=5pt, font=\scriptsize, text width=2.8cm},
-    sr/.style={rectangle, draw=teal!80, fill=teal!8, rounded corners=3pt, thick, align=center, inner sep=5pt, font=\scriptsize, text width=2.8cm},
-    deploy/.style={rectangle, draw=red!80, fill=red!8, rounded corners=3pt, thick, align=center, inner sep=5pt, font=\scriptsize, text width=2.8cm},
-    arrow/.style={->, thick, draw=black!75}
-]
-
-% Tier 1: Ingestion and Variational GP (Left to Right)
-\node[data] (raw) at (0, 1.8) {\textbf{Telemetry Inputs}\\$V(t), I(t), T(t)$\\6,124 Cycles, 47 Cells};
-\node[proc, right=0.8cm of raw] (prep) {\textbf{Feature Pipeline}\\15 Stats + 4 Flags\\24 Dimensions ($x_i$)};
-\node[proc, right=0.8cm of prep] (loco) {\textbf{LOCO Split}\\Hold Out Cell $\mathcal{C}_k$\\Train on 46 Cells};
-
-\node[box, above right=0.2cm and 0.8cm of loco] (wide) {\textbf{Wide Linear Kernel}\\$z_{\text{wide}} = W_w^T x_i$\\$k_{\text{wide}}(x, x')$};
-\node[box, below right=0.2cm and 0.8cm of loco] (deep) {\textbf{Deep Neural Kernel}\\$\phi_\theta(x_i) \in \mathbb{R}^{12}$ (MLP)\\ARD Matérn $k_{\text{deep}}$};
-
-\node[gp, right=0.8cm of $(wide)!0.5!(deep)$] (svgp) {\textbf{Sparse Variational GP}\\$M=64$ Inducing Points\\ELBO Optimization\\$\mathcal{O}(NM^2)$ Complexity};
-\node[data, right=0.8cm of svgp] (gpout) {\textbf{Predictive Posterior}\\$\hat{\mu}_{\text{GP}}(x_i)$\\$\hat{\sigma}_{\text{GP}}^2(x_i)$ (Calibrated)};
-
-% Tier 2: Heteroscedastic Symbolic Residuals & Edge Deployment
-\node[proc] (crossfit) at (0, -1.8) {\textbf{Inner Cross-Fitting}\\5-Fold Group Residuals\\$\hat{r}_i = y_i - \hat{\mu}_{\text{OOF}}$};
-\node[sr, right=0.8cm of crossfit] (weights) {\textbf{Precision Weighting}\\$w_i = \text{clip}\left(\frac{\sigma_{\text{med}}}{\hat{\sigma}_i + \epsilon}, 0.25, 4.0\right)$\\Inverse Variance};
-\node[sr, right=0.8cm of weights] (srfit) {\textbf{Pareto Symbolic Reg.}\\Multi-Objective Genetic\\$\mathcal{F}(g) = \text{MSE}_w + \gamma \mathcal{C}(g)$\\Discovered $g(x)$};
-\node[proc, right=0.8cm of srfit] (fuse) {\textbf{Guardrail Fusion}\\$\hat{y} = \hat{\mu}_{\text{GP}} + \eta^* g(x)$\\Shrinkage $\eta^* \in [0, 1]$\\Credible Bounds};
-\node[deploy, right=0.8cm of fuse] (edge) {\textbf{Edge BMS Target}\\TRT FP16 Engine +\\Native C Shared Object\\(\texttt{equation.so})};
-
-% Connecting Arrows Tier 1
-\draw[arrow] (raw) -- (prep);
-\draw[arrow] (prep) -- (loco);
-\draw[arrow] (loco.east) -- ++(0.3,0) |- (wide.west);
-\draw[arrow] (loco.east) -- ++(0.3,0) |- (deep.west);
-\draw[arrow] (wide.east) -| (svgp.north);
-\draw[arrow] (deep.east) -| (svgp.south);
-\draw[arrow] (svgp) -- (gpout);
-
-% Inter-tier Connections
-\draw[arrow] (gpout.south) -- ++(0,-0.6) -| (crossfit.north) node[pos=0.25, above, font=\tiny] {Training Folds Out-of-Fold Loop};
-\draw[arrow] (gpout.south) -- ++(0,-0.6) -| (fuse.north) node[pos=0.25, above, font=\tiny] {Test Inference $\hat{\mu}_{\text{GP}}, \hat{\sigma}_{\text{GP}}$};
-
-% Connecting Arrows Tier 2
-\draw[arrow] (crossfit) -- (weights);
-\draw[arrow] (weights) -- (srfit);
-\draw[arrow] (srfit) -- (fuse) node[midway, above, font=\tiny] {Analytical $g(x)$};
-\draw[arrow] (fuse) -- (edge);
-
-\end{tikzpicture}
-\caption{End-to-end architecture of WD-GPR-SR. Top Tier: Dual-branch Wide-and-Deep feature extractors feed a Sparse Variational Gaussian Process ($M=64$ inducing points), generating calibrated posterior distributions. Bottom Tier: Leak-free inner cross-fitting extracts out-of-fold residuals, weighted by heteroscedastic precision scores to steer genetic symbolic regression. Calibrated shrinkage guardrails fuse predictions for edge BMS deployment.}
+\includegraphics[width=0.95\linewidth,height=8.5cm,keepaspectratio]{figures/architecture.jpg}
+\caption{End-to-end architecture of WD-GPR-SR. Dual-branch Wide-and-Deep feature extractors feed a Sparse Variational Gaussian Process ($M=64$ inducing points), generating calibrated posterior distributions. Leak-free inner cross-fitting extracts out-of-fold residuals, weighted by heteroscedastic precision scores to steer genetic symbolic regression. Calibrated shrinkage guardrails fuse predictions for edge BMS deployment.}
 \label{fig:architecture}
 \end{figure}
 
