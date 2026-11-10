@@ -1,20 +1,3 @@
-#!/usr/bin/env python3
-"""Export the trained battery baseline joblib bundles to Jetson-friendly formats.
-
-Original .joblib files are never modified. Exports go to:
-    models/optimized/<model_name>/
-
-Formats:
-  * Exact GPR / SVR / sparse GPR: NumPy arrays + lightweight inference kernels
-  * Deep-kernel GPR: ONNX feature extractor + NumPy exact-GP parameters
-  * Random Forest: compact tree arrays + NumPy tree evaluator
-  * XGBoost: native UBJSON Booster
-  * WideNN / DeepNN / Wide&DeepNN / BiLSTM: ONNX
-  * Symbolic regression: expression JSON + portable C source
-
-TensorRT engines are deliberately NOT built here. Build them on the Orin Nano
-for its installed JetPack/TensorRT version using jetson/build_tensorrt_engines.sh.
-"""
 from __future__ import annotations
 
 import argparse
@@ -55,10 +38,6 @@ MODEL_NAMES = [
 RANDOM_SEED = 42
 
 def fast_ard_optimizer(obj_func, initial_theta, bounds):
-    """
-    Reimplementation of the optimizer used when training gpr_ard.
-    Must remain at module level for joblib/pickle compatibility.
-    """
 
     result = minimize(
         obj_func,
@@ -156,8 +135,6 @@ if torch is not None:
             self.epochs, self.batch_size, self.lr = epochs, batch_size, lr
             self.weight_decay, self.seed = weight_decay, seed
 else:
-    # Placeholders permit unrelated classical joblibs to be exported even when
-    # torch is absent. Neural model translation will report a dependency error.
     class _FeedForwardNet: pass
     class _BiLSTMNet: pass
     class TorchRegressor: pass
@@ -328,7 +305,6 @@ def validate_bundle_contract(bundle, expected_model_name):
 
 
 def extract_preprocessing(bundle):
-    """Export fitted imputation/standardization/one-hot parameters to JSON."""
     pre = bundle["preprocessor"]
     meta = {
         "feature_columns": list(bundle["feature_columns"]),
@@ -453,7 +429,6 @@ def export_gpr(model, out_dir, model_name):
         raise ValueError("Exact-GPR export requires normalize_y=False.")
     noise_level = float(getattr(white, "noise_level", 0.0))
 
-    # The additive WhiteKernel contributes no cross-covariance for test-vs-train inputs.
     sample = X_train[:min(16, len(X_train))]
     portable = covariance(sample, X_train, lengthscale, outputscale) @ alpha
     reference = np.asarray(model.predict(sample), dtype=float).reshape(-1)
@@ -500,8 +475,6 @@ def export_svr(model, out_dir):
 
 
 def _predict_random_forest_arrays(X, arrays):
-    # sklearn's tree predictors cast inputs to float32 before threshold traversal.
-    # Match that exactly; float64 probes can take a different branch at thresholds.
     X = np.asarray(X, dtype=np.float32)
     left, right = arrays["left"], arrays["right"]
     feature, threshold, value = arrays["feature"], arrays["threshold"], arrays["value"]
@@ -592,7 +565,7 @@ def export_onnx(module, out_path, input_shape):
     if torch is None:
         raise ImportError("PyTorch is required to export neural models to ONNX.")
     try:
-        import onnx  # noqa: F401
+        import onnx
     except ImportError as exc:
         raise ImportError("Install onnx on the training laptop: pip install onnx") from exc
     module = module.to("cpu").eval()
@@ -710,7 +683,6 @@ def export_deep_kernel_gpr(model, out_dir):
     )
     input_dim = int(train_x.shape[-1])
     onnx_info = export_onnx(extractor, out_dir / "feature_extractor.onnx", (1, input_dim))
-    # Check exported GP algebra against the original GPyTorch predictor.
     sample_x = train_x[:min(12, len(train_x))].numpy()
     with torch.no_grad():
         reference = model.predict(sample_x)
@@ -743,7 +715,6 @@ def export_deep_kernel_gpr(model, out_dir):
             "predictive_variance_exported": False}
 
 
-# gplearn program -> explicit prefix-tree JSON and a portable C expression.
 def symbolic_tree(program):
     tokens = list(program)
     cursor = 0
@@ -849,7 +820,6 @@ def export_one(model_name, force=False):
     if not source.exists():
         raise FileNotFoundError(f"Missing trained artifact: {source}")
 
-    # Load and validate before touching an existing optimized export.
     bundle = joblib.load(source)
     if not isinstance(bundle, dict):
         raise ValueError(f"Unexpected bundle structure in {source}")
@@ -909,7 +879,6 @@ def export_one(model_name, force=False):
             json.dumps(metadata, indent=2, default=_jsonable), encoding="utf-8"
         )
 
-        # Keep the previous working export until the replacement is complete.
         if backup_dir.exists():
             shutil.rmtree(backup_dir)
         if out_dir.exists():

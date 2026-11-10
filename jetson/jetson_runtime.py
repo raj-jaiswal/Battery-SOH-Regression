@@ -1,13 +1,3 @@
-#!/usr/bin/env python3
-"""Optimized battery SOH inference + hardware benchmark runtime for Jetson Orin Nano.
-
-Input contract:
-  data/unified.parquet is already cycle-level. Exactly one row per discharge cycle.
-  This runtime does NOT aggregate raw telemetry and does NOT load training joblibs.
-
-Model artifacts:
-  models/optimized/<model_name>/metadata.json + model-format-specific files.
-"""
 from __future__ import annotations
 
 import argparse
@@ -72,7 +62,6 @@ def _safe_json_load(path: Path) -> dict:
 
 
 def load_cycle_frame(parquet_path: Path, metadata: dict) -> pd.DataFrame:
-    """Load the exact cycle-level predictors needed by the trained model."""
     numeric = list(metadata.get("numeric_features", []))
     categorical = list(metadata.get("categorical_features", []))
     feature_cols = list(metadata.get("feature_columns", []))
@@ -118,7 +107,6 @@ def load_cycle_frame(parquet_path: Path, metadata: dict) -> pd.DataFrame:
 
 
 def transform_from_metadata(frame: pd.DataFrame, metadata: dict) -> np.ndarray:
-    """Recreate the fitted sklearn ColumnTransformer from exported scalar metadata."""
     numeric = list(metadata.get("numeric_features", []))
     categorical = list(metadata.get("categorical_features", []))
     blocks: list[np.ndarray] = []
@@ -180,7 +168,6 @@ def transform_from_metadata(frame: pd.DataFrame, metadata: dict) -> np.ndarray:
                 else:
                     values.append(str(value))
             values = np.asarray(values, dtype=object)
-            # sklearn OneHotEncoder(handle_unknown='ignore') emits all zeros for unseen levels.
             if known:
                 cat_blocks.append(np.column_stack([(values == category).astype(np.float32) for category in known]))
             else:
@@ -198,7 +185,6 @@ def transform_from_metadata(frame: pd.DataFrame, metadata: dict) -> np.ndarray:
 
 
 def make_sequences(frame: pd.DataFrame, X: np.ndarray, sequence_length: int) -> np.ndarray:
-    """Match the notebook's left-padded causal sequence ending at each current cycle."""
     X = np.asarray(X, dtype=np.float32)
     result = np.zeros((len(frame), sequence_length, X.shape[1]), dtype=np.float32)
     for _, indices in frame.groupby("cell_group", sort=False).groups.items():
@@ -261,8 +247,6 @@ def _matern(X, Z, lengthscale, outputscale, nu, chunk=128):
 
 
 def _predict_rf_arrays(X, arrays, return_tree_spread=False):
-    # Match sklearn tree semantics: cast to float32 before threshold comparison.
-    # Vectorize node traversal across rows to keep the 400-tree model practical on Orin.
     X = np.asarray(X, dtype=np.float32)
     left, right = arrays["left"], arrays["right"]
     feature, threshold, values = arrays["feature"], arrays["threshold"], arrays["value"]
@@ -326,11 +310,10 @@ def _eval_symbolic(node, X):
 
 
 class TensorRTRunner:
-    """Direct TensorRT runner supporting TensorRT 8 binding API and TensorRT 10 tensor API."""
     def __init__(self, engine_path: Path):
         import tensorrt as trt
         import pycuda.driver as cuda
-        import pycuda.autoinit  # noqa: F401
+        import pycuda.autoinit
         self.trt, self.cuda = trt, cuda
         runtime = trt.Runtime(trt.Logger(trt.Logger.ERROR))
         self.engine = runtime.deserialize_cuda_engine(engine_path.read_bytes())
@@ -590,7 +573,6 @@ class OptimizedPredictor:
 
 
 class TegraStatsMonitor:
-    """Integrate board VDD_IN power samples emitted by tegrastats."""
     PATTERN = re.compile(r"VDD_IN\s+([0-9]+(?:\.[0-9]+)?)mW", re.IGNORECASE)
 
     def __init__(self, interval_ms=100):
@@ -730,7 +712,6 @@ def run_benchmark(model_name: str, script_path: str | Path, cycles_per_cell=8,
     target_scale = float(metadata["target_scale"])
     prediction_frame["predicted_soh_pct"] = np.asarray(last_pred, dtype=np.float64) * target_scale + target_mean
 
-    # Store only hardware/deployment results here; never overwrite LOCO accuracy results.
     results_dir = project_root / "baseline_results" / model_name
     results_dir.mkdir(parents=True, exist_ok=True)
     prediction_frame.to_csv(results_dir / "jetson_inference_predictions.csv", index=False)

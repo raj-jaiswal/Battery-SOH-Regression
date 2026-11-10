@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-"""Check model export artifacts and cycle-level Parquet before a Jetson benchmark."""
 from pathlib import Path
 import argparse, json, sys
 import pandas as pd
