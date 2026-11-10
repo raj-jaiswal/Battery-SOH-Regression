@@ -13,8 +13,8 @@
 \citation{gupta2026fusion,oconnor2026separating}
 \citation{chen2024lstm,zhou2023bilstm,zhao2024stacked,wu2024endcloud,liu2026dualbranch,kim2026uncertainty}
 \citation{park2025feature,sun2024interpretable}
-\@writefile{toc}{\contentsline {section}{\numberline {1}Introduction}{1}{section.1}\protected@file@percent }
 \citation{liu2018novel,richardson2019multiscale,yang2018multiscale,li2024lowdim,wang2024bayesian,alvarez2026uncertainty}
+\@writefile{toc}{\contentsline {section}{\numberline {1}Introduction}{1}{section.1}\protected@file@percent }
 \citation{liu2018novel}
 \citation{richardson2019multiscale}
 \citation{zhou2023bilstm}
@@ -23,11 +23,6 @@
 \citation{alvarez2026uncertainty}
 \citation{hu2026multiphysics,cranmer2023pysr,titsias2009variational}
 \citation{guidelines}
-\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Systematic literature comparison in battery State-of-Health (SOH) estimation against the proposed WD-GPR-SR framework.}}{2}{table.caption.1}\protected@file@percent }
-\providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
-\newlabel{tab:literature_comparison}{{1}{2}{Systematic literature comparison in battery State-of-Health (SOH) estimation against the proposed WD-GPR-SR framework}{table.caption.1}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {1.1}Formal Problem Formulation}{2}{subsection.1.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {1.2}Primary Contributions}{2}{subsection.1.2}\protected@file@percent }
 \citation{he2011prognostics,xing2013ensemble}
 \citation{liu2018novel}
 \citation{richardson2019multiscale}
@@ -35,6 +30,11 @@
 \citation{li2024lowdim}
 \citation{wang2024bayesian}
 \citation{alvarez2026uncertainty}
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Systematic literature comparison in battery State-of-Health (SOH) estimation against the proposed WD-GPR-SR framework.}}{2}{table.caption.1}\protected@file@percent }
+\providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
+\newlabel{tab:literature_comparison}{{1}{2}{Systematic literature comparison in battery State-of-Health (SOH) estimation against the proposed WD-GPR-SR framework}{table.caption.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.1}Formal Problem Formulation}{2}{subsection.1.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.2}Primary Contributions}{2}{subsection.1.2}\protected@file@percent }
 \citation{zhou2023bilstm}
 \citation{zhao2024stacked}
 \citation{wu2024endcloud}
@@ -55,29 +55,29 @@
 \@writefile{toc}{\contentsline {section}{\numberline {3}Dataset and Quality Audit}{4}{section.3}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Dataset Demographics and Origins}{4}{subsection.3.1}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Data Extraction and Quality Audit}{4}{subsection.3.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.3}Leak-Free Leave-One-Cell-Out (LOCO) Split Protocol}{4}{subsection.3.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {4}Proposed Methodology: WD-GPR-SR}{4}{section.4}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Transformed feature schema (24 dimensions) extracted per discharge cycle.}}{5}{table.caption.2}\protected@file@percent }
-\newlabel{tab:feature_schema}{{2}{5}{Transformed feature schema (24 dimensions) extracted per discharge cycle}{table.caption.2}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Transformed feature schema (24 dimensions) extracted per discharge cycle.}}{4}{table.caption.2}\protected@file@percent }
+\newlabel{tab:feature_schema}{{2}{4}{Transformed feature schema (24 dimensions) extracted per discharge cycle}{table.caption.2}{}}
+\citation{titsias2009variational}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3}Leak-Free Leave-One-Cell-Out (LOCO) Split Protocol}{5}{subsection.3.3}\protected@file@percent }
 \@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces End-to-end architecture of WD-GPR-SR. Top Tier: Dual-branch Wide-and-Deep feature extractors feed a Sparse Variational Gaussian Process ($M=64$ inducing points), generating calibrated posterior distributions. Bottom Tier: Leak-free inner cross-fitting extracts out-of-fold residuals, weighted by heteroscedastic precision scores to steer genetic symbolic regression. Calibrated shrinkage guardrails fuse predictions for edge BMS deployment.}}{5}{figure.caption.3}\protected@file@percent }
 \newlabel{fig:architecture}{{1}{5}{End-to-end architecture of WD-GPR-SR. Top Tier: Dual-branch Wide-and-Deep feature extractors feed a Sparse Variational Gaussian Process ($M=64$ inducing points), generating calibrated posterior distributions. Bottom Tier: Leak-free inner cross-fitting extracts out-of-fold residuals, weighted by heteroscedastic precision scores to steer genetic symbolic regression. Calibrated shrinkage guardrails fuse predictions for edge BMS deployment}{figure.caption.3}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {4}Proposed Methodology: WD-GPR-SR}{5}{section.4}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Wide-and-Deep Covariance Kernel Formulation}{5}{subsection.4.1}\protected@file@percent }
-\citation{titsias2009variational}
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Sparse Variational Gaussian Process Optimization}{6}{subsection.4.2}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Uncertainty-Weighted Symbolic Residual Distillation}{6}{subsection.4.3}\protected@file@percent }
 \@writefile{loa}{\contentsline {algorithm}{\numberline {1}{\ignorespaces WD-GPR-SR Training and LOCO Evaluation Protocol}}{7}{algorithm.1}\protected@file@percent }
 \newlabel{alg:wd_gpr_sr}{{1}{7}{WD-GPR-SR Training and LOCO Evaluation Protocol}{algorithm.1}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.4}Hyperparameter Configuration}{7}{subsection.4.4}\protected@file@percent }
 \@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Hyperparameter configurations of the proposed WD-GPR-SR framework.}}{7}{table.caption.4}\protected@file@percent }
 \newlabel{tab:hyperparameters}{{3}{7}{Hyperparameter configurations of the proposed WD-GPR-SR framework}{table.caption.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.4}Hyperparameter Configuration}{7}{subsection.4.4}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {5}Experimental Results and Discussion}{7}{section.5}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Baseline Models and Evaluation Setup}{7}{subsection.5.1}\protected@file@percent }
 \@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces Comparative performance of WD-GPR-SR against 14 baseline models under 47-fold Leave-One-Cell-Out (LOCO) cross-validation across 6,124 cycles. Models ranked by out-of-fold RMSE.}}{8}{table.caption.5}\protected@file@percent }
 \newlabel{tab:baseline_comparison}{{4}{8}{Comparative performance of WD-GPR-SR against 14 baseline models under 47-fold Leave-One-Cell-Out (LOCO) cross-validation across 6,124 cycles. Models ranked by out-of-fold RMSE}{table.caption.5}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Comparative Analysis and Key Observations}{8}{subsection.5.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3}Multi-Criteria Radar Analysis}{8}{subsection.5.3}\protected@file@percent }
 \@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Radar/spider chart comparing normalized multi-criteria performance profiles across battery SOH prognostics paradigms. WD-GPR-SR establishes the largest, most balanced operational envelope, simultaneously optimizing accuracy, precision, uncertainty coverage, calibration, and interpretability.}}{9}{figure.caption.6}\protected@file@percent }
 \newlabel{fig:spider_chart}{{2}{9}{Radar/spider chart comparing normalized multi-criteria performance profiles across battery SOH prognostics paradigms. WD-GPR-SR establishes the largest, most balanced operational envelope, simultaneously optimizing accuracy, precision, uncertainty coverage, calibration, and interpretability}{figure.caption.6}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.3}Multi-Criteria Radar Analysis}{9}{subsection.5.3}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {5.4}Statistical Stability across Random Seeds}{9}{subsection.5.4}\protected@file@percent }
 \@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces Multi-seed evaluation of WD-GPR-SR across three random seeds under 47-fold LOCO cross-validation.}}{9}{table.caption.7}\protected@file@percent }
 \newlabel{tab:seed_metrics}{{5}{9}{Multi-seed evaluation of WD-GPR-SR across three random seeds under 47-fold LOCO cross-validation}{table.caption.7}{}}
@@ -86,14 +86,12 @@
 \newlabel{tab:ablation_summary}{{6}{10}{Component ablation analysis evaluating algorithmic tiers under 47-fold LOCO cross-validation}{table.caption.8}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Ablation trajectory demonstrating the progressive impact of architectural components on predictive errors across the 5 evaluated variants.}}{10}{figure.caption.9}\protected@file@percent }
 \newlabel{fig:ablation_trajectory}{{3}{10}{Ablation trajectory demonstrating the progressive impact of architectural components on predictive errors across the 5 evaluated variants}{figure.caption.9}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.6}Training Dynamics and LOCO Generalization Diagnostics}{10}{subsection.5.6}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.7}Explainable AI (XAI) Deep Dive}{10}{subsection.5.7}\protected@file@percent }
-\newlabel{fig:training_curve}{{4a}{11}{ELBO training loss convergence across 120 epochs}{figure.caption.10}{}}
-\newlabel{sub@fig:training_curve}{{a}{11}{ELBO training loss convergence across 120 epochs}{figure.caption.10}{}}
-\newlabel{fig:uncertainty_calibration}{{4b}{11}{Empirical uncertainty reliability / calibration curve}{figure.caption.10}{}}
-\newlabel{sub@fig:uncertainty_calibration}{{b}{11}{Empirical uncertainty reliability / calibration curve}{figure.caption.10}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Convergence and uncertainty calibration diagnostics. (a) Mean ELBO loss and standard deviation envelopes over training iterations. (b) Empirical out-of-fold coverage plotted against nominal credibility intervals, showing near-ideal alignment along the diagonal.}}{11}{figure.caption.10}\protected@file@percent }
-\newlabel{fig:diagnostics_training_calibration}{{4}{11}{Convergence and uncertainty calibration diagnostics. (a) Mean ELBO loss and standard deviation envelopes over training iterations. (b) Empirical out-of-fold coverage plotted against nominal credibility intervals, showing near-ideal alignment along the diagonal}{figure.caption.10}{}}
+\newlabel{fig:training_curve}{{4a}{10}{ELBO training loss convergence across 120 epochs}{figure.caption.10}{}}
+\newlabel{sub@fig:training_curve}{{a}{10}{ELBO training loss convergence across 120 epochs}{figure.caption.10}{}}
+\newlabel{fig:uncertainty_calibration}{{4b}{10}{Empirical uncertainty reliability / calibration curve}{figure.caption.10}{}}
+\newlabel{sub@fig:uncertainty_calibration}{{b}{10}{Empirical uncertainty reliability / calibration curve}{figure.caption.10}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Convergence and uncertainty calibration diagnostics. (a) Mean ELBO loss and standard deviation envelopes over training iterations. (b) Empirical out-of-fold coverage plotted against nominal credibility intervals, showing near-ideal alignment along the diagonal.}}{10}{figure.caption.10}\protected@file@percent }
+\newlabel{fig:diagnostics_training_calibration}{{4}{10}{Convergence and uncertainty calibration diagnostics. (a) Mean ELBO loss and standard deviation envelopes over training iterations. (b) Empirical out-of-fold coverage plotted against nominal credibility intervals, showing near-ideal alignment along the diagonal}{figure.caption.10}{}}
 \newlabel{fig:loco_pred_vs_true}{{5a}{11}{LOCO predicted vs. actual SOH scatter ($y=x$ ideal)}{figure.caption.11}{}}
 \newlabel{sub@fig:loco_pred_vs_true}{{a}{11}{LOCO predicted vs. actual SOH scatter ($y=x$ ideal)}{figure.caption.11}{}}
 \newlabel{fig:loco_residuals}{{5b}{11}{Out-of-fold residuals vs. predicted SOH}{figure.caption.11}{}}
@@ -102,11 +100,14 @@
 \newlabel{sub@fig:loco_cell_mae}{{c}{11}{Out-of-fold MAE breakdown across each of the 47 held-out battery cells}{figure.caption.11}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Leave-One-Cell-Out (LOCO) generalization diagnostics across 6,124 cycles. (a) Pooled out-of-fold predictions tightly follow the unity line across the entire $10\%$--$130\%$ range. (b) Residuals remain homoscedastically centered at zero without structural drift. (c) Per-cell error breakdown demonstrates uniform cross-cell generalization across both NASA Ames and CALCE chemistries.}}{11}{figure.caption.11}\protected@file@percent }
 \newlabel{fig:loco_generalization_diagnostics}{{5}{11}{Leave-One-Cell-Out (LOCO) generalization diagnostics across 6,124 cycles. (a) Pooled out-of-fold predictions tightly follow the unity line across the entire $10\%$--$130\%$ range. (b) Residuals remain homoscedastically centered at zero without structural drift. (c) Per-cell error breakdown demonstrates uniform cross-cell generalization across both NASA Ames and CALCE chemistries}{figure.caption.11}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.6}Training Dynamics and LOCO Generalization Diagnostics}{11}{subsection.5.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.7}Explainable AI (XAI) Deep Dive}{11}{subsection.5.7}\protected@file@percent }
 \@writefile{lot}{\contentsline {table}{\numberline {7}{\ignorespaces Top SHAP feature importances across all 6,124 discharge cycles.}}{12}{table.caption.12}\protected@file@percent }
 \newlabel{tab:shap_importance}{{7}{12}{Top SHAP feature importances across all 6,124 discharge cycles}{table.caption.12}{}}
 \@writefile{lot}{\contentsline {table}{\numberline {8}{\ignorespaces LIME local explanation for an aged operational cycle ($\text  {True SOH} = 72.40\%$).}}{12}{table.caption.13}\protected@file@percent }
 \newlabel{tab:lime_explanation}{{8}{12}{LIME local explanation for an aged operational cycle ($\text {True SOH} = 72.40\%$)}{table.caption.13}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {5.8}Pareto Frontier Analysis}{12}{subsection.5.8}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.9}Edge Deployment Pipeline and Hardware Translation Architecture}{12}{subsection.5.9}\protected@file@percent }
 \newlabel{fig:shap_plot}{{6a}{13}{Global SHAP feature attribution rankings}{figure.caption.14}{}}
 \newlabel{sub@fig:shap_plot}{{a}{13}{Global SHAP feature attribution rankings}{figure.caption.14}{}}
 \newlabel{fig:ard_plot}{{6b}{13}{Automatic Relevance Determination (ARD) latent relevance}{figure.caption.14}{}}
@@ -120,15 +121,14 @@
 \bibcite{he2011prognostics}{{1}{}{{}}{{}}}
 \bibcite{xing2013ensemble}{{2}{}{{}}{{}}}
 \bibcite{saha2013comparative}{{3}{}{{}}{{}}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.9}Edge Deployment Pipeline and Hardware Translation Architecture}{14}{subsection.5.9}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {6}Limitations, Ethical Considerations, and Conclusion}{14}{section.6}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.1}Limitations and Future Work}{14}{subsection.6.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.2}Ethical and Societal Considerations}{14}{subsection.6.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.3}Conclusion}{14}{subsection.6.3}\protected@file@percent }
 \bibcite{liu2018novel}{{4}{}{{}}{{}}}
 \bibcite{richardson2019multiscale}{{5}{}{{}}{{}}}
 \bibcite{yang2018multiscale}{{6}{}{{}}{{}}}
 \bibcite{li2024lowdim}{{7}{}{{}}{{}}}
+\@writefile{toc}{\contentsline {section}{\numberline {6}Limitations, Ethical Considerations, and Conclusion}{14}{section.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.1}Limitations and Future Work}{14}{subsection.6.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.2}Ethical and Societal Considerations}{14}{subsection.6.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.3}Conclusion}{14}{subsection.6.3}\protected@file@percent }
 \bibcite{wang2024bayesian}{{8}{}{{}}{{}}}
 \bibcite{titsias2009variational}{{9}{}{{}}{{}}}
 \bibcite{zhang2022capacity}{{10}{}{{}}{{}}}
