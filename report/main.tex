@@ -124,6 +124,7 @@ To solve this problem of the trilemma, this research proposes a novel model call
 In accordance with the conventional engineering practices in battery health prognosis applications \cite{guidelines}:
 \begin{quote}
 \textit{Predict the continuous State-of-Health value ($SOH \in [10\%, 130\%]$) on the basis of 15 feature summary statistics for cycling and categorical variables that characterize the cell itself ($x_i \in \mathbb{R}^{24}$) while using only the Leave-One-Cell-Out evaluation paradigm with the small prediction error (RMSE $\le 4.85\%$), well-calibrated 95\% prediction intervals (PICP $\ge 95\%$) and analytical formulae.}
+\end{quote}
 
 \subsection{Primary Contributions}
 The primary contributions of the work are presented as follows:
@@ -772,7 +773,7 @@ To enable seamless real-time execution aboard automotive microcontrollers and em
     \item \textbf{Sparse GP Vectorized Evaluation:} The variational posterior calculations (Eq.~11--12) involve matrix-vector multiplications between test kernel vectors $k_M(x_*)$ and precomputed inducing point weights $\alpha = K_{MM}^{-1} m \in \mathbb{R}^{64}$. In edge firmware, these operations are implemented as standard Level-2 Basic Linear Algebra Subprograms (BLAS \texttt{dgemv}), requiring negligible memory storage for the $64 \times 24$ inducing coordinate matrix.
     \item \textbf{Native C Symbolic Residual Compilation:} The discovered mathematical expression $g(x)$ is emitted as pure ANSI C source code and compiled via \texttt{gcc -O3 -fPIC -shared} into a native shared library (\texttt{equation.so}). This library executes in constant instruction time with zero dynamic memory allocation.
 \end{enumerate}
-This proposed hardware architecture decouples complex offline genetic discovery from online inference. Physical benchmarking and in-situ electrical profiling aboard embedded automotive dynamometer testbenches represent planned future engineering evaluations.
+This proposed hardware architecture decouples complex offline genetic discovery from online inference.
 
 \section{Limitations and Conclusion}
 
@@ -785,7 +786,7 @@ While WD-GPR-SR establishes superior prognostic performance under Leave-One-Cell
 \end{enumerate}
 
 \subsection{Ethical and Societal Considerations}
-Accurate and calibrated battery State-of-Health monitoring provides critical safety and environmental dividends. Overconfident health estimations by opaque neural networks present catastrophic risks of thermal runaway, vehicle fires, and unexpected roadside stranding. By delivering mathematically rigorous 95\% credible intervals, WD-GPR-SR equips automotive battery management systems with calibrated early-warning diagnostics. Furthermore, verifiable SOH certification accelerates the circular economy by automating battery health grading for secondary grid-storage and renewable peak-shaving applications.
+Accurate and calibrated battery State-of-Health monitoring provides critical safety and environmental dividends. Overconfident health estimations by opaque neural networks present catastrophic risks of thermal runaway, vehicle fires, and unexpected roadside stranding. By delivering mathematically rigorous 95\% credible intervals, WD-GPR-SR equips automotive battery management systems with calibrated early-warning diagnostics.
 
 \subsection{Conclusion}
 In this work, \textbf{WD-GPR-SR} has been proposed, which is a novel prognostics approach that integrates Wide-and-Deep Sparse Gaussian Process Regression with Uncertainty-Weighted Symbolic Residual Correction. Utilizing a wide linear covariance function in combination with a deep neural ARD Matérn covariance function for $M = 64$ inducing points, the model learns multi-resolution aging trends with $\mathcal{O}(NM^2)$ time complexity. In addition, a cross-fitting procedure inside a nested loop provides out-of-fold residuals for driving genetic Pareto symbolic regression via uncertainty-weighted precision.

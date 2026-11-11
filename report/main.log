@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026/Arch Linux) (preloaded format=pdflatex 2026.11.10)  11 NOV 2026 16:47
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026/Arch Linux) (preloaded format=pdflatex 2026.11.10)  11 NOV 2026 17:00
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1147,148 +1147,127 @@ Underfull \hbox (badness 5008) in paragraph at lines 116--117
 \T1/cmss/bx/n/8 cer-tainty, closed-form equa-tions,
  []
 
-[2] [3]
-<figures/architecture.jpg, id=161, 1329.96875pt x 961.5925pt>
+[2] [3] [4{/usr/share/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}]
+<figures/architecture.jpg, id=179, 1329.96875pt x 961.5925pt>
 File: figures/architecture.jpg Graphic file (type jpg)
 <use figures/architecture.jpg>
-Package pdftex.def Info: figures/architecture.jpg  used on input line 227.
+Package pdftex.def Info: figures/architecture.jpg  used on input line 228.
 (pdftex.def)             Requested size: 334.50044pt x 241.85013pt.
- [4{/usr/share/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}]
-[5 <./figures/architecture.jpg>] [6]
+
+[5 <./figures/architecture.jpg>]
 Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on in
-put line 299.
-
-Overfull \hbox (1.86876pt too wide) in paragraph at lines 363--364
-[]\T1/cmr/bx/n/10 Gaussian Pro-cesses: \T1/cmr/m/n/10 GPR RBF (\T1/cmtt/m/n/10 
-gpr_rbf\T1/cmr/m/n/10 ), GPR Matérn-$\OT1/cmr/m/n/10 5\OML/cmm/m/it/10 =\OT1/cm
-r/m/n/10 2$ \T1/cmr/m/n/10 (\T1/cmtt/m/n/10 gpr_matern\T1/cmr/m/n/10 ), GPR ARD
- (\T1/cmtt/m/n/10 gpr_ard\T1/cmr/m/n/10 ),
- []
-
-[7] [8] [9]
-Package pgfplots info on input line 549: Using 'lua backend=false' for axis: x 
+put line 300.
+ [6] [7] [8] [9]
+Package pgfplots info on input line 550: Using 'lua backend=false' for axis: x 
 coord trafo unsupported.
- [10]
-<figures/training_curve.png, id=276, 505.89pt x 289.08pt>
+<figures/training_curve.png, id=269, 505.89pt x 289.08pt>
 File: figures/training_curve.png Graphic file (type png)
 <use figures/training_curve.png>
-Package pdftex.def Info: figures/training_curve.png  used on input line 572.
+Package pdftex.def Info: figures/training_curve.png  used on input line 573.
 (pdftex.def)             Requested size: 243.10233pt x 138.9156pt.
-<figures/uncertainty_calibration.png, id=278, 397.485pt x 361.35pt>
+<figures/uncertainty_calibration.png, id=271, 397.485pt x 361.35pt>
 File: figures/uncertainty_calibration.png Graphic file (type png)
 <use figures/uncertainty_calibration.png>
 Package pdftex.def Info: figures/uncertainty_calibration.png  used on input lin
-e 579.
+e 580.
 (pdftex.def)             Requested size: 172.14037pt x 156.49124pt.
-<figures/loco_pred_vs_true.png, id=279, 1264.725pt x 903.375pt>
+<figures/loco_pred_vs_true.png, id=272, 1264.725pt x 903.375pt>
 File: figures/loco_pred_vs_true.png Graphic file (type png)
 <use figures/loco_pred_vs_true.png>
-Package pdftex.def Info: figures/loco_pred_vs_true.png  used on input line 591.
+Package pdftex.def Info: figures/loco_pred_vs_true.png  used on input line 592.
 
 (pdftex.def)             Requested size: 207.12677pt x 147.9477pt.
-<figures/loco_residuals.png, id=280, 1264.725pt x 903.375pt>
+<figures/loco_residuals.png, id=273, 1264.725pt x 903.375pt>
 File: figures/loco_residuals.png Graphic file (type png)
 <use figures/loco_residuals.png>
-Package pdftex.def Info: figures/loco_residuals.png  used on input line 598.
+Package pdftex.def Info: figures/loco_residuals.png  used on input line 599.
 (pdftex.def)             Requested size: 207.12677pt x 147.9477pt.
-<figures/loco_cell_mae.png, id=281, 1264.725pt x 903.375pt>
+<figures/loco_cell_mae.png, id=274, 1264.725pt x 903.375pt>
 File: figures/loco_cell_mae.png Graphic file (type png)
 <use figures/loco_cell_mae.png>
-Package pdftex.def Info: figures/loco_cell_mae.png  used on input line 605.
+Package pdftex.def Info: figures/loco_cell_mae.png  used on input line 606.
 (pdftex.def)             Requested size: 231.03714pt x 165.02654pt.
- [11 <./figures/training_curve.png> <./figures/uncertainty_calibration.png> <./
-figures/loco_pred_vs_true.png> <./figures/loco_residuals.png> <./figures/loco_c
-ell_mae.png>]
-<figures/shap_importance.png, id=302, 578.16pt x 361.35pt>
+ [10 <./figures/training_curve.png> <./figures/uncertainty_calibration.png>]
+<figures/shap_importance.png, id=294, 578.16pt x 361.35pt>
 File: figures/shap_importance.png Graphic file (type png)
 <use figures/shap_importance.png>
-Package pdftex.def Info: figures/shap_importance.png  used on input line 668.
+Package pdftex.def Info: figures/shap_importance.png  used on input line 669.
 (pdftex.def)             Requested size: 243.09901pt x 151.93689pt.
-<figures/deep_ard_relevance.png, id=303, 505.89pt x 252.945pt>
+<figures/deep_ard_relevance.png, id=295, 505.89pt x 252.945pt>
 File: figures/deep_ard_relevance.png Graphic file (type png)
 <use figures/deep_ard_relevance.png>
-Package pdftex.def Info: figures/deep_ard_relevance.png  used on input line 675
+Package pdftex.def Info: figures/deep_ard_relevance.png  used on input line 676
 .
 (pdftex.def)             Requested size: 243.10233pt x 121.55116pt.
-<figures/pdp_ice.png, id=304, 578.16pt x 693.792pt>
+<figures/pdp_ice.png, id=296, 578.16pt x 693.792pt>
 File: figures/pdp_ice.png Graphic file (type png)
 <use figures/pdp_ice.png>
-Package pdftex.def Info: figures/pdp_ice.png  used on input line 682.
+Package pdftex.def Info: figures/pdp_ice.png  used on input line 683.
 (pdftex.def)             Requested size: 130.4068pt x 156.48816pt.
- [12] [13 <./figures/shap_importance.png> <./figures/deep_ard_relevance.png> <.
-/figures/pdp_ice.png>] [14] [15] [16]
+ [11 <./figures/loco_pred_vs_true.png> <./figures/loco_residuals.png> <./figure
+s/loco_cell_mae.png>] [12]
+[13 <./figures/shap_importance.png> <./figures/deep_ard_relevance.png> <./figur
+es/pdp_ice.png>] [14]
+Underfull \hbox (badness 1221) in paragraph at lines 863--864
+[]\T1/cmr/m/n/9 M. Cran-mer, In-ter-pretable ma-chine learn-ing for sci-ence wi
+th PySR and Sym-bol-i-cRe-gres-sion.jl, arXiv preprint
+ []
 
-! LaTeX Error: \begin{quote} on input line 125 ended by \end{document}.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.902 \end{document}
-                    
-Your command was ignored.
-Type  I <command> <return>  to replace it with another command,
-or  <return>  to continue without it.
-
-(./main.aux)
+[15] (./main.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
  ***********
 Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
- )
-(\end occurred inside a group at level 1)
-
-### semi simple group (level 1) entered at line 125 (\begingroup)
-### bottom level 
+ ) 
 Here is how much of TeX's memory you used:
- 37438 strings out of 469515
- 847693 string characters out of 5470806
- 1378302 words of memory out of 5000000
- 65313 multiletter control sequences out of 15000+600000
+ 37439 strings out of 469515
+ 847740 string characters out of 5470806
+ 1386903 words of memory out of 5000000
+ 65315 multiletter control sequences out of 15000+600000
  659926 words of font info for 107 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 90i,19n,98p,2051b,2582s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pf
-b></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/
-texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/share/texmf-dist/font
-s/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texmf-dist/fonts/type1/public/
-amsfonts/cm/cmmi7.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmm
-i8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/sh
-are/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texmf-dist/
-fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texmf-dist/fonts/type1/publ
-ic/amsfonts/cm/cmr7.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/c
-mr8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/sh
-are/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-dist
-/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/share/texmf-dist/fonts/type1/pu
-blic/amsfonts/cm/cmsy6.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/c
-m/cmsy7.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></u
-sr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/share/texmf-
-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/share/texmf-dist/font
-s/type1/public/cm-super/sfbx0700.pfb></usr/share/texmf-dist/fonts/type1/public/
-cm-super/sfbx0800.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfbx10
-00.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfbx1095.pfb></usr/sh
-are/texmf-dist/fonts/type1/public/cm-super/sfbx1200.pfb></usr/share/texmf-dist/
-fonts/type1/public/cm-super/sfcc0800.pfb></usr/share/texmf-dist/fonts/type1/pub
-lic/cm-super/sfrm0500.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sf
-rm0700.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfrm0800.pfb></us
-r/share/texmf-dist/fonts/type1/public/cm-super/sfrm0900.pfb></usr/share/texmf-d
-ist/fonts/type1/public/cm-super/sfrm1000.pfb></usr/share/texmf-dist/fonts/type1
-/public/cm-super/sfrm1200.pfb></usr/share/texmf-dist/fonts/type1/public/cm-supe
-r/sfrm1728.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfss0800.pfb>
-</usr/share/texmf-dist/fonts/type1/public/cm-super/sfss0900.pfb></usr/share/tex
-mf-dist/fonts/type1/public/cm-super/sfsx0800.pfb></usr/share/texmf-dist/fonts/t
-ype1/public/cm-super/sfsx0900.pfb></usr/share/texmf-dist/fonts/type1/public/cm-
-super/sfti0600.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfti0800.
-pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfti1000.pfb></usr/share
-/texmf-dist/fonts/type1/public/cm-super/sftt0800.pfb></usr/share/texmf-dist/fon
-ts/type1/public/cm-super/sftt0900.pfb></usr/share/texmf-dist/fonts/type1/public
-/cm-super/sftt1000.pfb>
-Output written on main.pdf (16 pages, 2417287 bytes).
+ 90i,19n,98p,2051b,2451s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/
+texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texmf-dist/fon
+ts/type1/public/amsfonts/cm/cmmi5.pfb></usr/share/texmf-dist/fonts/type1/public
+/amsfonts/cm/cmmi6.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cm
+mi7.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/s
+hare/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/share/texmf-dist
+/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texmf-dist/fonts/type1/pu
+blic/amsfonts/cm/cmr6.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm
+/cmr7.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/
+share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/share/texmf-dist
+/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-dist/fonts/type1/p
+ublic/amsfonts/cm/cmsy5.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/
+cm/cmsy6.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></
+usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texmf
+-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/share/texmf-dist/fonts/typ
+e1/public/amsfonts/symbols/msbm10.pfb></usr/share/texmf-dist/fonts/type1/public
+/cm-super/sfbx0700.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfbx0
+800.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfbx1000.pfb></usr/s
+hare/texmf-dist/fonts/type1/public/cm-super/sfbx1095.pfb></usr/share/texmf-dist
+/fonts/type1/public/cm-super/sfbx1200.pfb></usr/share/texmf-dist/fonts/type1/pu
+blic/cm-super/sfcc0800.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/s
+frm0500.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfrm0700.pfb></u
+sr/share/texmf-dist/fonts/type1/public/cm-super/sfrm0800.pfb></usr/share/texmf-
+dist/fonts/type1/public/cm-super/sfrm0900.pfb></usr/share/texmf-dist/fonts/type
+1/public/cm-super/sfrm1000.pfb></usr/share/texmf-dist/fonts/type1/public/cm-sup
+er/sfrm1200.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfrm1728.pfb
+></usr/share/texmf-dist/fonts/type1/public/cm-super/sfss0800.pfb></usr/share/te
+xmf-dist/fonts/type1/public/cm-super/sfss0900.pfb></usr/share/texmf-dist/fonts/
+type1/public/cm-super/sfsx0800.pfb></usr/share/texmf-dist/fonts/type1/public/cm
+-super/sfsx0900.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfti0600
+.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfti0800.pfb></usr/shar
+e/texmf-dist/fonts/type1/public/cm-super/sfti1000.pfb></usr/share/texmf-dist/fo
+nts/type1/public/cm-super/sftt0800.pfb></usr/share/texmf-dist/fonts/type1/publi
+c/cm-super/sftt0900.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sftt
+1000.pfb>
+Output written on main.pdf (15 pages, 2416378 bytes).
 PDF statistics:
- 567 PDF objects out of 1000 (max. 8388607)
- 441 compressed objects within 5 object streams
- 155 named destinations out of 1000 (max. 500000)
+ 563 PDF objects out of 1000 (max. 8388607)
+ 438 compressed objects within 5 object streams
+ 154 named destinations out of 1000 (max. 500000)
  63 words of extra memory for PDF output out of 10000 (max. 10000000)
 
