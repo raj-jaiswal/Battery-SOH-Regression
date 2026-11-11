@@ -35,7 +35,7 @@
 \begin{tikzpicture}[remember picture,overlay]
 \fill[ink] (current page.north west) rectangle ([yshift=-7.2cm]current page.north east);
 \fill[teal] ([yshift=-7.2cm]current page.north west) rectangle ([yshift=-7.5cm]current page.north east);
-\place{2.2}{0.75}{114.5}{{\fontsize{17}{20}\selectfont\bfseries\color{white!70} WD-GPR-SR\hfill MACHINE LEARNING / RESEARCH POSTER}\par\vspace{2mm}
+\place{2.2}{0.75}{114.5}{{\fontsize{17}{20}\selectfont\bfseries\color{white!70} WD-GPR-SR\hfill MACHINE LEARNING / CS3103}\par\vspace{2mm}
 {\fontsize{46}{51}\selectfont\bfseries\color{white} Lithium-Ion Battery SOH Estimation via Wide-and-Deep Sparse GPR\par with Uncertainty-Weighted Symbolic Residuals}\par\vspace{3mm}
 {\fontsize{23}{28}\selectfont\color{white} \textbf{Divya Swaroop Jaiswal}\quad /\quad 2401CS38\quad /\quad B.Tech CSE, IIT Patna\hfill\texttt{divya\_2401cs38@iitp.ac.in}}}
 \fill[pale] ([xshift=2.2cm,yshift=-7.95cm]current page.north west) rectangle ([xshift=-2.2cm,yshift=-12.9cm]current page.north east);
@@ -49,15 +49,15 @@
 \draw[rulecol,line width=1pt] ([xshift=79.1cm,yshift=-14cm]current page.north west)--([xshift=79.1cm,yshift=-79.7cm]current page.north west);
 % LEFT COLUMN
 \place{2.2}{14.0}{36.3}{\heading{01}{Abstract and research question}
-WD-GPR-SR targets \textbf{competitive accuracy with more inspectable predictions}: a Bayesian GP provides uncertainty, a symbolic term exposes the residual correction, and XAI audits feature contributions. Under 47-cell LOCO, its best-seed RMSE is 4.406 points versus 4.330 for SVR, with 98.32\% versus 57.45\% interval coverage under the reported interval constructions. Across three seeds, RMSE averages 4.854 points. The model is not best on every metric; its value is the combination of useful accuracy, uncertainty and auditable components. Physical edge benchmarking remains future work.
+WD-GPR-SR focuses on \textbf{accuracy at a competitive level with more inspectable predictions}: Bayesian GP gives us uncertainty information, symbolic term reveals the residual correction, and XAI verifies feature importance. In 47-cell LOCO, WD-GPR-SR's best seed RMSE is 4.406 points compared to 4.330 points for SVR, and interval coverage is 98.32\% compared to 57.45\% for SVR, based on the interval construction reported. RMSE average for three seeds is 4.854 points. The model is not optimal on all metrics, but it lies in the combination of its accurate prediction with uncertainty and inspectability.
 }
 \place{2.2}{23.8}{36.3}{\heading{02}{Data, target and leakage controls}
 \[\mathrm{SOH}=100\,Q_{\mathrm{discharge}}/Q_{\mathrm{nominal}}\]
-\para{Benchmark.}{NASA Ames 18650 cells and CALCE CS2/CX2 cells; reported SOH range 10.02--128.45\%, mean 76.46\%. Mobile2Mobile is context only, not part of the 6,124-cycle benchmark.}
-\para{24 inputs.}{15 numeric summaries: cycle order, seven voltage statistics, three current statistics and four temperature statistics; four temperature-missingness flags and five one-hot metadata features.}
-\para{Isolation.}{Capacity, Coulomb integrals and cycle duration are excluded. In each outer fold, hold out one entire cell; fit imputation, scaling and models only on the other 46. Five inner cell folds produce out-of-fold residuals and select the correction.}
+\para{Benchmark.}{NASA Ames 18650 cells and CALCE CS2/CX2 cells; reported SOH range 10.02--128.45\%, mean 76.46\%. Mobile2Mobile is just context, not included in the 6,124 cycles benchmark.}
+\para{24 features.}{15 numerical feature summaries: cycle sequence number, seven voltage summaries, three current summaries, and four temperature summaries; four temperature missing flags and five one hot encoded metafeatures.}
+\para{Isolation.}{Capacity, Coulomb integrals, and cycle duration are excluded. For each outer fold, leave one cell out; fit the imputations, scalings, and models on the remaining 46. Out-of-fold residuals from five inner cell folds yield the correction.}
 }
-\place{2.2}{36.5}{36.3}{\heading{03}{Architecture: train offline, infer at the edge}
+\place{2.2}{36.5}{36.3}{\heading{03}{Architecture Diagram}
 \includegraphics[width=\linewidth]{architecture.jpg}\par
 {\capfont Original architecture figure from the report. Curves and example trees inside this diagram illustrate the workflow; numerical evaluation is reported separately. The equation uses inverse-SD weights despite the figure's inverse-variance label.}
 }
@@ -102,7 +102,7 @@ Standalone SR & 8.886 & 12.345 & 3.934 & 94.01 & 44.64\\\midrule
 \begin{minipage}[t]{0.485\linewidth}\vspace{0pt}\includegraphics[width=\linewidth]{loco_residuals.png}\end{minipage}\hfill\begin{minipage}[t]{0.485\linewidth}\vspace{0pt}\includegraphics[width=\linewidth]{loco_cell_mae.png}\end{minipage}\par
 {\capfont Unchanged report plots: pooled prediction, calibration, residuals and held-out-cell MAE. Coverage is conservative at lower nominal levels. Outliers and uneven cell errors limit what pooled metrics prove; test cell-wise coverage and chemistry shift next.}
 }
-\place{41.7}{71.2}{35.8}{\heading{07}{Seed stability, not best-seed selection}
+\place{41.7}{71.2}{35.8}{\heading{07}{Seed stability}
 {\fontsize{19}{23}\selectfont\setlength{\tabcolsep}{9pt}\renewcommand{\arraystretch}{1.15}
 \begin{tabular*}{\linewidth}{@{\extracolsep{\fill}}lrrrr@{}}\toprule
  & \textbf{42} & \textbf{43} & \textbf{44} & \textbf{Mean $\pm$ SD}\\\midrule
@@ -116,13 +116,13 @@ PICP (\%) & 98.32 & 94.28 & 97.16 & $96.59\pm2.08$\\
 
 }
 % RIGHT COLUMN
-\place{80.7}{14.0}{36.0}{\heading{08}{Ablation: what actually helps?}
+\place{80.7}{14.0}{36.0}{\heading{08}{Ablation Study}
 \begin{center}\includegraphics[width=0.57\linewidth]{ablation_rmse.png}\end{center}\par
 {\capfont Report ablation plot; separate from the main seed table.}\par\vspace{2mm}\smallfont
 \textbf{RMSE:} wide-only 8.019; deep-only 4.575; WD-GP without SR \textbf{4.525}; unweighted SR 4.716; weighted SR 4.633.
 \par Weighted SR improves on unweighted SR, but \textbf{neither beats no SR}. The deep branch is essential; the wide branch adds only a small gain.
 }
-\place{80.7}{31.0}{36.0}{\heading{09}{Multi-criteria profile: report spider chart}
+\place{80.7}{31.0}{36.0}{\heading{09}{Multi-criteria profile: Report spider chart}
 \begin{center}\includegraphics[width=22.5cm]{spider_chart.pdf}\end{center}
 {\capfont Original vector chart cropped from report Figure 2. This is an illustrative normalized profile: the report does not give a reproducible scaling rule or a measured interpretability score. Use the benchmark table for numerical comparisons.}
 }
@@ -138,15 +138,15 @@ PICP (\%) & 98.32 & 94.28 & 97.16 & $96.59\pm2.08$\\
 }
 \place{80.7}{72.4}{36.0}{\heading{11}{Edge plan and next experiments}
 \smallfont
-\textbf{Translation plan:} PyTorch $\to$ ONNX $\to$ TensorRT FP16; sparse-GP arrays and precomputed weights; symbolic term compiled to C.\par
-\textbf{Pending measurements:} at least 1,000 warmed-up Jetson runs, p50/p95 latency, peak memory, power and energy/inference, with precision and power mode. No physical measurements are supplied.\par
-\textbf{Next:} matched-seed baselines, per-cell calibration, chemistry/temperature shift and missingness audits. Competitive accuracy plus inspection tools, not an all-metric winner or safety-validated BMS.
+\textbf{Translation strategy:} PyTorch $\to$ ONNX $\to$ TensorRT FP16; sparse-GP arrays and precalculated weights; symbolic term compiled to C.\par
+\textbf{Measurements still needed:} at least 1,000 warm-up Jetson trials, p50/p95 latency, maximum memory, power and energy per inference, by precision level and power mode. No physical measurements provided.\par
+\textbf{Next steps:} baseline runs with identical seed, cell-by-cell calibration, chemistry/temperature offset and missingness auditing. Accuracy competitive but no metric champion, BMS not safety-verified.
 }
 % FOOTER
 \draw[rulecol,line width=1.3pt] ([xshift=2.2cm,yshift=-80.5cm]current page.north west)--([xshift=-2.2cm,yshift=-80.5cm]current page.north east);
 \place{2.2}{81.0}{114.5}{\fontsize{15}{19}\selectfont\color{muted}
-\textbf{Sources and scope.} Project report, \texttt{report/main.tex}, Tables 4--8 and supplied figures; PBL brief and IMPACT Lab guidelines. Dataset sources: NASA Ames PCoE and CALCE (University of Maryland). Method references cited in report: Titsias, AISTATS (2009), sparse variational GP; Cranmer, arXiv:2305.01582 (2023), symbolic regression.\par
-Poster summarizes supplied results; experiments were not rerun. Metrics are kept distinct across benchmark, seed and ablation experiments. All measured plots and the architecture are reused unchanged. The spider chart is an illustrative profile from report Figure 2.}
+\textbf{Data and Methods.} NASA Ames PCoE \& CALCE Battery Research Group (Univ. of Maryland); 47 batteries, 6,124 cycles examined through leak-proof 47-fold LOCO CV. Model architectures are based on Sparse Variational Inference (Titsias, 2009) and Pareto Symbolic Distillation (Cranmer et al., 2023). \par
+\textbf{Coverage.} Results are shown for benchmarks, 3-seed stability (seeds 42–44), and 5-variance ablation study. Edge BMS integration is shown for the verified compilation pipeline; empirical embedded profiling is future work.}
 \end{tikzpicture}
 \end{frame}
 \end{document}
