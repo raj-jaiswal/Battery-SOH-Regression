@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026/Arch Linux) (preloaded format=pdflatex 2026.11.10)  11 NOV 2026 10:11
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026/Arch Linux) (preloaded format=pdflatex 2026.11.10)  11 NOV 2026 11:28
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1121,19 +1121,6 @@ LaTeX Font Info:    Font shape `T1/phv/m/it' in size <28.86021> not available
 (Font)              Font shape `T1/phv/m/sl' tried instead on input line 154.
 LaTeX Font Info:    Font shape `T1/phv/m/it' in size <23.40024> not available
 (Font)              Font shape `T1/phv/m/sl' tried instead on input line 154.
-
-! Misplaced alignment tab character &.
-<argument> ...ze {21}{26}\selectfont NASA, CALCE &
-                                                   Mobile2Mobile; leave-one-...
-l.154 \end{frame}
-                 
-I can't figure out why you would want to use a tab mark
-here. If you just want an ampersand, the remedy is
-simple: Just type `I\&' now. But if some right brace
-up above has ended a previous alignment prematurely,
-you're probably due for more error messages, and you
-might try typing `S' now just to see what is salvageable.
-
 LaTeX Font Info:    Calculating math sizes for size <18.5> on input line 154.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <18.5> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 154.
@@ -1162,6 +1149,7 @@ LaTeX Font Info:    Font shape `T1/phv/m/it' in size <12.60013> not available
 (Font)              Font shape `T1/phv/m/sl' tried instead on input line 154.
 LaTeX Font Info:    Trying to load font information for T1+ptm on input line 15
 4.
+
 (/usr/share/texmf-dist/tex/latex/psnfss/t1ptm.fd
 File: t1ptm.fd 2001/06/04 font definitions for T1/ptm.
 )
@@ -1259,7 +1247,7 @@ Package rerunfilecheck Info: File `poster.out' has not changed.
 Here is how much of TeX's memory you used:
  26785 strings out of 469515
  515935 string characters out of 5470806
- 1036275 words of memory out of 5000000
+ 1036244 words of memory out of 5000000
  54820 multiletter control sequences out of 15000+600000
  801842 words of font info for 253 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
@@ -1275,7 +1263,7 @@ elvetic/uhvb8a.pfb></usr/share/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb><
 /usr/share/texmf-dist/fonts/type1/urw/helvetic/uhvro8a.pfb></usr/share/texmf-di
 st/fonts/type1/urw/symbol/usyr.pfb></usr/share/texmf-dist/fonts/type1/urw/symbo
 l/usyr.pfb></usr/share/texmf-dist/fonts/type1/urw/times/utmr8a.pfb>
-Output written on poster.pdf (1 page, 1867823 bytes).
+Output written on poster.pdf (1 page, 1868046 bytes).
 PDF statistics:
  217 PDF objects out of 1000 (max. 8388607)
  122 compressed objects within 2 object streams

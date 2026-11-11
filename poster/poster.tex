@@ -1,6 +1,3 @@
-% Compile from this directory: pdflatex poster.tex
-% Place this file in project/poster/. Uses ../report/figures/ unchanged.
-% A self-contained bundle may instead place the same figures in ./assets/.
 \documentclass[final]{beamer}
 \usepackage[orientation=landscape,size=a0,scale=1.0]{beamerposter}
 \usepackage[T1]{fontenc}
@@ -13,8 +10,8 @@
 \graphicspath{{../report/figures/}{assets/}{./}}
 \definecolor{ink}{HTML}{251F21}
 \definecolor{muted}{HTML}{585254}
-\definecolor{teal}{HTML}{287565}
-\definecolor{pale}{HTML}{EDF5F2}
+\definecolor{teal}{HTML}{1F78B4}
+\definecolor{pale}{HTML}{EDF4F9}
 \definecolor{sand}{HTML}{F4EFEC}
 \definecolor{rulecol}{HTML}{DCDDD9}
 \setbeamercolor{normal text}{fg=ink,bg=white}
@@ -44,7 +41,7 @@
 \fill[pale] ([xshift=2.2cm,yshift=-7.95cm]current page.north west) rectangle ([xshift=-2.2cm,yshift=-12.9cm]current page.north east);
 \metric{3.2}{24}{4.854 $\pm$ 0.495}{RMSE, SOH percentage points}
 \metric{32.8}{25}{96.59 $\pm$ 2.08\%}{Coverage of nominal 95\% intervals}
-\metric{63.0}{22}{47 cells / 6,124 cycles}{NASA, CALCE & Mobile2Mobile; leave-one-cell-out}
+\metric{63.0}{22}{47 cells / 6,124 cycles}{NASA, CALCE \& Mobile2Mobile; leave-one-cell-out}
 \place{92.5}{8.5}{23}{{\fontsize{24}{29}\selectfont\bfseries Three-seed evidence}\par\smallfont Seeds 42, 43, 44; mean $\pm$ sample SD. Best seed is reported separately, not as the mean.}
 
 % Column separators
