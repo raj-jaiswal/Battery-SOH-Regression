@@ -2,10 +2,7 @@
 
 **Lithium-Ion Battery State-of-Health Estimation using Wide-and-Deep Sparse Gaussian Process Regression with Uncertainty-Weighted Symbolic Residual Correction**
 
-**Author:** Divya Swaroop Jaiswal  
-**Affiliation:** Department of Computer Science and Engineering, Indian Institute of Technology Patna  
-**Contact:** divya_2401cs38@iitp.ac.in
-
+**Author:** Divya Swaroop Jaiswal
 ---
 
 ## Overview
@@ -450,20 +447,3 @@ The discovered symbolic correction equation for Seed 42 is a constant offset: `g
 - **End-to-End Differentiability:** The current two-stage pipeline optimizes the GP and symbolic components sequentially. Future work will explore differentiable relaxations of genetic tree search to enable joint backpropagation.
 
 ---
-
-## Citation
-
-If you use this code, model, or results in your research, please cite:
-
-```
-Divya Swaroop Jaiswal, "Lithium-Ion Battery SOH Estimation via Wide-and-Deep
-Sparse GPR with Uncertainty-Weighted Symbolic Residuals," Department of Computer
-Science and Engineering, Indian Institute of Technology Patna, 2026.
-```
-
----
-
-## License
-
-This project is released for academic and research use. Please contact the author for other use cases.
-
